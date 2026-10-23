@@ -436,7 +436,6 @@ ADD INDEX "CustNum" ON "ae_Warrant"
 
 ADD INDEX "ProposalID" ON "ae_Warrant" 
   AREA "Schema Area"
-  UNIQUE
   INDEX-FIELD "ProposalID" ASCENDING 
 
 ADD TABLE "fp_Behaviour"
@@ -773,4 +772,4 @@ ADD INDEX "SegName" ON "fp_Segment"
 PSC
 cpstream=ISO8859-1
 .
-0000015632
+0000015622
