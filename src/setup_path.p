@@ -7,5 +7,5 @@ IF cParam = "" OR cParam = ? THEN
 ELSE 
     cBaseDir = cParam.
 
-PROPATH = PROPATH + "," + cBaseDir + "\src".
+PROPATH = PROPATH + "," + cBaseDir + "\src," + cBaseDir + "\seed," + OS-GETENV('DLC') + '\gui\netlib\OpenEdge.Net.pl'.
 MESSAGE "PROPATH successfully set to: " + PROPATH VIEW-AS ALERT-BOX INFO.
