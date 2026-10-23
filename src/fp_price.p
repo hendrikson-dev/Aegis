@@ -24,8 +24,21 @@ dFinalPrice = dBasePrice.
 RUN fp_classify.p (INPUT iCustNum, OUTPUT cSegment, OUTPUT dScore).
 
 FIND fp_Segment WHERE fp_Segment.SegName = cSegment NO-LOCK NO-ERROR.
-IF NOT AVAILABLE fp_segment THEN DO:
+IF NOT AVAILABLE fp_Segment THEN DO:
     cReason = '[SEGMENT] ' + cSegment + ' | NO segment rules found, base price used'.
+    
+    CREATE ae_Proposal.
+    ASSIGN ae_Proposal.ProposalID    = NEXT-VALUE(ae_ProposalSeq)
+           ae_Proposal.Engine        = 'Strategy'
+           ae_Proposal.Subject       = STRING(iCustNum)
+           ae_Proposal.Kind          = 'Price'
+           ae_Proposal.BaseValue     = dBasePrice
+           ae_Proposal.ProposedValue = dBasePrice
+           ae_Proposal.FloorValue    = dMarginalCost
+           ae_Proposal.TextSource    = 'MOCK'
+           ae_Proposal.CreatedAt     = NOW.
+           
+    oProposalID = ae_Proposal.ProposalID.
     RETURN.
 END.
 
@@ -50,11 +63,14 @@ dFinalPrice = ROUND(dFinalPrice, 2).
 
 CREATE ae_Proposal.
 ASSIGN ae_Proposal.ProposalID    = NEXT-VALUE(ae_ProposalSeq)
-       ae_Proposal.Engine        = "Strategy"
+       ae_Proposal.Engine        = 'Strategy'
+       ae_Proposal.Subject       = STRING(iCustNum)
+       ae_Proposal.Kind          = 'Price'
        ae_Proposal.BaseValue     = dBasePrice
        ae_Proposal.ProposedValue = dFinalPrice
        ae_Proposal.FloorValue    = dFloor
-       ae_Proposal.TextSource    = "MOCK".
+       ae_Proposal.TextSource    = 'MOCK'
+       ae_Proposal.CreatedAt     = NOW.
 
 oProposalID = ae_Proposal.ProposalID.
 

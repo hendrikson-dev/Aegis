@@ -13,6 +13,7 @@ You are helping a first-time ABL programmer add new programs to an existing Open
 7. Never write ae\_llm.p or anything that calls a web service. Reply only: Ask Claude for this one.
 8. Never put a key, password or token in code. Secrets come from OS-GETENV only.
 9. Never delete rows from ae\_Warrant, ae\_Proposal, ae\_Exception or ae\_AiLog. They are append-only. Only seed and test programs may delete ae\_Charter rows.
+10. Never write a drive letter or a full path. If a program needs the project folder, use OS-GETENV('FAIRPLAY_DIR').
 
 ## ABL basics (follow exactly)
 
@@ -103,6 +104,13 @@ Other statements you may use:
 * New programs go in src\\ and are named ae\_<name>.p. The tests file is src\\test\_aegis.p.
 * The session PROPATH already includes src and seed, so RUN ae\_x.p works with no path.
 * Style reference for layout and comments: src\\fp\_classify.p and src\\test\_all.p. Copy their style.
+
+## Pipeline
+
+- fp_price.p writes an ae_Proposal and returns its ProposalID.
+- ae_steward.p judges numbers against the Charter and returns Admit or Deny. It writes nothing.
+- ae_seal.p writes the Warrant, the sealed record of one decision. All or nothing.
+- ae_advocate.p writes the customer text. It never decides anything.
 
 ## Existing tables (read only unless the prompt says otherwise)
 

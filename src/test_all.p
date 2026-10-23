@@ -59,3 +59,4 @@ DISPLAY
     cResult6 FORMAT "x(60)"
     cResult7 FORMAT "x(60)"
     WITH FRAME test_frame 1 COLUMN WIDTH 70 NO-BOX NO-LABELS.
+   

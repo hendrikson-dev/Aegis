@@ -1,1 +1,11 @@
 .aider*
+db/
+*.db
+*.bi
+*.d1
+*.lk
+*.lg
+*.lic
+lbia*
+rcda*
+srta*
