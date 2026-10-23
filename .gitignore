@@ -1,4 +1,7 @@
 .aider*
+
+.env
+
 db/
 *.db
 *.bi
@@ -9,3 +12,9 @@ db/
 lbia*
 rcda*
 srta*
+
+*.r
+
+backup/
+proof/
+notes/

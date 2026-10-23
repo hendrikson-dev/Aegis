@@ -51,10 +51,10 @@ Steps:
    ClauseID | EngineScope | Regime | RuleText | LimitValue
    PR-1 | Strategy | Normal | Maximum price rise per change | 0.10
    PR-2 | Strategy | Surge | Maximum price rise per change | 0.40
-   PR-3 | Strategy | Any | Price may not go below the floor | 0
-   LI-1 | Provision | Any | Every price drop gets a recorded decision | 1
-   LI-2 | Provision | Any | Liability may not exceed the price difference | 1.00
-   TR-1 | All | Any | Every Warrant names the clause applied | 1
+   PR-3 | Strategy | All | Price may not go below the floor | 0
+   LI-1 | Provision | All | Every price drop gets a recorded decision | 1
+   LI-2 | Provision | All | Liability may not exceed the price difference | 1.00
+   TR-1 | All | All | Every Warrant names the clause applied | 1
 3. If there is no ae_Regime row at all, create one: RegimeID = NEXT-VALUE(ae_RegimeSeq), Regime = 'Normal', DeclaredBy = 'System', Reason = 'Starting regime', DeclaredAt = NOW, WarrantID = 0.
 4. Finish with: MESSAGE 'Charter v1 loaded' VIEW-AS ALERT-BOX.
 
