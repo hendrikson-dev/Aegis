@@ -17,12 +17,19 @@ DEFINE OUTPUT PARAMETER cReason       AS CHARACTER NO-UNDO.
 
 DEFINE VARIABLE dWouldBe       AS DECIMAL NO-UNDO.
 DEFINE VARIABLE dFloorForBlock AS DECIMAL NO-UNDO.
+DEFINE VARIABLE iPropID        AS INTEGER NO-UNDO.
 
 RUN fp_classify.p (INPUT iCustNum, OUTPUT cSegment, OUTPUT dScore).
 RUN fp_fairness.p (INPUT iCustNum, OUTPUT cFairness).
 RUN fp_price.p    (INPUT iCustNum, INPUT dListPrice, INPUT dMarginalCost,
                    INPUT dOccupancy, INPUT dHoursLeft, INPUT dWindow,
-                   OUTPUT dFinalPrice, OUTPUT cReason).
+                   OUTPUT iPropID, OUTPUT cReason).
+
+FIND ae_Proposal WHERE ae_Proposal.ProposalID = iPropID NO-LOCK NO-ERROR.
+IF AVAILABLE ae_Proposal THEN
+    dFinalPrice = ae_Proposal.ProposedValue.
+ELSE
+    dFinalPrice = dListPrice..
 
 RUN fp_comp_perk.p (INPUT iCustNum, INPUT iBookingNum,
                     INPUT dListPrice, INPUT dListPrice,

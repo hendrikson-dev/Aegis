@@ -1,3 +1,28 @@
+ADD SEQUENCE "ae_ProposalSeq"
+  INITIAL 1
+  INCREMENT 1
+  CYCLE-ON-LIMIT no
+
+ADD SEQUENCE "ae_WarrantSeq"
+  INITIAL 1
+  INCREMENT 1
+  CYCLE-ON-LIMIT no
+
+ADD SEQUENCE "ae_ExceptionSeq"
+  INITIAL 1
+  INCREMENT 1
+  CYCLE-ON-LIMIT no
+
+ADD SEQUENCE "ae_RegimeSeq"
+  INITIAL 1
+  INCREMENT 1
+  CYCLE-ON-LIMIT no
+
+ADD SEQUENCE "ae_LogSeq"
+  INITIAL 1
+  INCREMENT 1
+  CYCLE-ON-LIMIT no
+
 ADD TABLE "ae_AiLog"
   AREA "Schema Area"
   DUMP-NAME "ae_ailog"
@@ -11,16 +36,20 @@ ADD FIELD "LogID" OF "ae_AiLog" AS integer
 
 ADD FIELD "AiPoint" OF "ae_AiLog" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "Advocate"
   POSITION 3
   MAX-WIDTH 40
+  VALEXP "AiPoint = 'Advocate' OR AiPoint = 'Concierge'"
+  VALMSG "Error: AiPoint must be Advocate or Concierge."
   ORDER 20
 
 ADD FIELD "AiResult" OF "ae_AiLog" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "failed"
   POSITION 4
   MAX-WIDTH 40
+  VALEXP "AiResult = 'accepted' OR AiResult = 'rejected' OR AiResult = 'failed' OR AiResult = 'fallback'"
+  VALMSG "Error: AiResult must be accepted, rejected, failed, or fallback."
   ORDER 30
 
 ADD FIELD "Millis" OF "ae_AiLog" AS integer 
@@ -70,9 +99,11 @@ ADD FIELD "EngineScope" OF "ae_Charter" AS character
 
 ADD FIELD "Regime" OF "ae_Charter" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "Normal"
   POSITION 5
   MAX-WIDTH 40
+  VALEXP "Regime = 'Normal' OR Regime = 'Surge' OR Regime = 'All'"
+  VALMSG "Error: Regime must be Normal, Surge, or All."
   ORDER 40
 
 ADD FIELD "RuleText" OF "ae_Charter" AS character 
@@ -89,22 +120,30 @@ ADD FIELD "Active" OF "ae_Charter" AS logical
   MAX-WIDTH 1
   ORDER 60
 
-ADD FIELD "EffectiveForm" OF "ae_Charter" AS datetime-tz 
+ADD FIELD "EffectiveFrom" OF "ae_Charter" AS datetime-tz 
   FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
   INITIAL ?
   POSITION 8
   MAX-WIDTH 12
   ORDER 70
 
-ADD INDEX "ClauseID" ON "ae_Charter" 
+ADD FIELD "LimitValue" OF "ae_Charter" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 9
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 80
+
+ADD INDEX "CharterPk" ON "ae_Charter" 
   AREA "Schema Area"
   UNIQUE
   PRIMARY
   INDEX-FIELD "ClauseID" ASCENDING 
+  INDEX-FIELD "Version" ASCENDING 
 
-ADD INDEX "Version" ON "ae_Charter" 
+ADD INDEX "VersionIDx" ON "ae_Charter" 
   AREA "Schema Area"
-  UNIQUE
   INDEX-FIELD "Version" ASCENDING 
 
 ADD TABLE "ae_Exception"
@@ -127,9 +166,11 @@ ADD FIELD "WarrantID" OF "ae_Exception" AS integer
 
 ADD FIELD "ExcState" OF "ae_Exception" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "Normal"
   POSITION 4
   MAX-WIDTH 40
+  VALEXP "ExcState = 'Open' OR ExcState = 'Overridden' OR ExcState = 'Closed'"
+  VALMSG "Error: ExcState must be Open, Overridden, or Closed."
   ORDER 30
 
 ADD FIELD "ReasonCode" OF "ae_Exception" AS character 
@@ -172,9 +213,11 @@ ADD FIELD "ProposalID" OF "ae_Proposal" AS integer
 
 ADD FIELD "Engine" OF "ae_Proposal" AS character 
   FORMAT "x(50)"
-  INITIAL ""
+  INITIAL "Strategy"
   POSITION 3
   MAX-WIDTH 100
+  VALEXP "Engine = 'Strategy' OR Engine = 'Provision' OR Engine = 'Demand' OR Engine = 'HR'"
+  VALMSG "Error: Engine must be Strategy, Provision, Demand, or HR."
   ORDER 20
 
 ADD FIELD "Subject" OF "ae_Proposal" AS character 
@@ -224,9 +267,11 @@ ADD FIELD "ProposedText" OF "ae_Proposal" AS character
 
 ADD FIELD "TextSource" OF "ae_Proposal" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "MOCK"
   POSITION 10
   MAX-WIDTH 40
+  VALEXP "TextSource = 'AI' OR TextSource = 'MOCK' OR TextSource = 'TEMPLATE'"
+  VALMSG "Error: TextSource must be AI, MOCK, or TEMPLATE."
   ORDER 90
 
 ADD FIELD "CreatedAt" OF "ae_Proposal" AS datetime-tz 
@@ -255,9 +300,11 @@ ADD FIELD "RegimeID" OF "ae_Regime" AS integer
 
 ADD FIELD "Regime" OF "ae_Regime" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "Normal"
   POSITION 3
   MAX-WIDTH 40
+  VALEXP "Regime = 'Normal' OR Regime = 'Surge' OR Regime = 'All'"
+  VALMSG "Error: Regime must be Normal, Surge, or All."
   ORDER 20
 
 ADD FIELD "DeclaredBy" OF "ae_Regime" AS character 
@@ -335,9 +382,11 @@ ADD FIELD "Clauses" OF "ae_Warrant" AS character
 
 ADD FIELD "Ruling" OF "ae_Warrant" AS character 
   FORMAT "x(20)"
-  INITIAL ""
+  INITIAL "Deny"
   POSITION 7
   MAX-WIDTH 40
+  VALEXP "Ruling = 'Admit' OR Ruling = 'Deny' OR Ruling = 'Override'"
+  VALMSG "Error: Ruling must be Admit, Deny, or Override."
   ORDER 60
 
 ADD FIELD "ReasonCode" OF "ae_Warrant" AS character 
@@ -383,7 +432,6 @@ ADD INDEX "WarrantID" ON "ae_Warrant"
 
 ADD INDEX "CustNum" ON "ae_Warrant" 
   AREA "Schema Area"
-  UNIQUE
   INDEX-FIELD "CustNum" ASCENDING 
 
 ADD INDEX "ProposalID" ON "ae_Warrant" 
@@ -725,4 +773,4 @@ ADD INDEX "SegName" ON "fp_Segment"
 PSC
 cpstream=ISO8859-1
 .
-0000013882
+0000015632
