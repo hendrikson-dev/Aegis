@@ -29,7 +29,7 @@ FIND ae_Proposal WHERE ae_Proposal.ProposalID = iPropID NO-LOCK NO-ERROR.
 IF AVAILABLE ae_Proposal THEN
     dFinalPrice = ae_Proposal.ProposedValue.
 ELSE
-    dFinalPrice = dListPrice..
+    dFinalPrice = dListPrice.
 
 RUN fp_comp_perk.p (INPUT iCustNum, INPUT iBookingNum,
                     INPUT dListPrice, INPUT dListPrice,

@@ -65,6 +65,11 @@ DEFINE VARIABLE bLast       AS LOGICAL NO-UNDO.
 DEFINE VARIABLE cBaseDir AS CHARACTER NO-UNDO.
 DEFINE VARIABLE cSimDir  AS CHARACTER NO-UNDO.
 
+DEFINE VARIABLE cRul  AS CHARACTER NO-UNDO.
+DEFINE VARIABLE cRsn  AS CHARACTER NO-UNDO.
+DEFINE VARIABLE cCls  AS CHARACTER NO-UNDO.
+DEFINE VARIABLE oWarr AS INTEGER   NO-UNDO.
+
 cBaseDir = SESSION:PARAMETER.
 IF cBaseDir = "" OR cBaseDir = ? THEN 
     cBaseDir = ".".
@@ -169,8 +174,8 @@ DO iTick = 1 TO 60:
             RUN fp_decide.p (INPUT iCust, INPUT 0, INPUT dList, INPUT dCost, INPUT bLast,
                              INPUT dOcc, INPUT dHrs, INPUT iWindowHours,
                              OUTPUT cSeg, OUTPUT dScr, OUTPUT cFair, OUTPUT dFinal,
-                             OUTPUT dComp, OUTPUT cPerk, OUTPUT dBlocked, OUTPUT cWhy).
-
+                             OUTPUT dComp, OUTPUT cPerk, OUTPUT dBlocked, OUTPUT cWhy).                             
+                             
             iNextBook = iNextBook + 1.
             DO TRANSACTION:
                 CREATE fp_Booking.
@@ -205,6 +210,16 @@ DO iTick = 1 TO 60:
             RUN LogEvent (INPUT (IF ttOrder.Held THEN 'HOLD' ELSE 'ORDER'),
                           INPUT STRING(iCust) + ' ' + cCustName + ' | ' + cSeg + ' | ' + cFair
                                 + ' | R' + TRIM(STRING(dFinal, '>>>,>>9.99')) + ' | perk ' + cPerk).
+                                
+            FIND LAST ae_Proposal NO-LOCK NO-ERROR.
+            IF AVAILABLE ae_Proposal THEN DO:
+                RUN ae_steward.p (INPUT ae_Proposal.ProposalID, INPUT 'Normal', OUTPUT cRul, OUTPUT cRsn, OUTPUT cCls).
+                
+                RUN ae_seal.p (INPUT ae_Proposal.ProposalID, INPUT 'Normal', INPUT cRul, INPUT cRsn, INPUT cCls, OUTPUT oWarr).
+                
+                RUN LogEvent (INPUT 'WARRANT', 
+                              INPUT 'ID ' + STRING(oWarr) + ' | ' + cRul + ' | ' + cCls).
+            END.                     
         END.
     END.
 
