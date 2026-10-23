@@ -1,0 +1,18 @@
+DEFINE VARIABLE dF   AS DECIMAL   NO-UNDO.
+DEFINE VARIABLE cOut AS CHARACTER NO-UNDO.
+
+
+
+RUN fp_floor.p (INPUT 500, INPUT 300, INPUT 85, INPUT 30, INPUT 336, INPUT 72, OUTPUT dF).
+cOut = 'A  30% full, 14 days out : ' + STRING(dF).
+
+RUN fp_floor.p (INPUT 500, INPUT 300, INPUT 85, INPUT 90, INPUT 48, INPUT 72, OUTPUT dF).
+cOut = cOut + CHR(10) + 'B  90% full, 2 days out  : ' + STRING(dF).
+
+RUN fp_floor.p (INPUT 500, INPUT 300, INPUT 85, INPUT 20, INPUT 6, INPUT 72, OUTPUT dF).
+cOut = cOut + CHR(10) + 'C  20% full, 6 hours out : ' + STRING(dF).
+
+RUN fp_floor.p (INPUT 500, INPUT 300, INPUT 85, INPUT 50, INPUT 24, INPUT 72, OUTPUT dF).
+cOut = cOut + CHR(10) + 'D  50% full, 1 day out   : ' + STRING(dF).
+
+MESSAGE cOut VIEW-AS ALERT-BOX INFORMATION.

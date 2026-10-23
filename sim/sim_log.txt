@@ -1,0 +1,93 @@
+FAIRPLAY SIMULATED DAY - Bus (simulated data)
+08:00  ORDER  1034 Thandi Dlamini | Regular | RELEASE | R475.00 | perk None
+08:00  HOLD  1110 Thandi Van Der Merwe | New | EXPLOIT | R500.00 | perk None
+08:30  ORDER  1004 Sipho Khumalo | New | RELEASE | R500.00 | perk None
+08:40  ORDER  1182 Zanele Van Der Merwe | Regular | RELEASE | R475.00 | perk None
+08:50  ORDER  1193 Lerato Nkosi | Regular | RELEASE | R475.00 | perk None
+08:50  ORDER  1064 Ayanda Pillay | Regular | RELEASE | R475.00 | perk None
+09:00  ORDER  1185 Pieter Dlamini | New | RELEASE | R500.00 | perk None
+09:00  ORDER  1069 Lerato Dlamini | Regular | RELEASE | R475.00 | perk None
+09:10  ORDER  1032 Johan Dlamini | New | RELEASE | R500.00 | perk None
+09:30  HOLD  1123 Ayanda Van Der Merwe | New | HOLD | R500.00 | perk None
+09:40  HOLD  1172 Mpho Van Der Merwe | New | HOLD | R500.00 | perk None
+09:50  ORDER  1001 Thandi Mokoena | Regular | RELEASE | R475.00 | perk None
+10:00  ORDER  1188 Kabelo Dlamini | Regular | RELEASE | R475.00 | perk None
+10:00  ORDER  1094 Pieter Zulu | Regular | RELEASE | R475.00 | perk None
+10:10  HOLD  1031 Pieter Mokoena | New | EXPLOIT | R500.00 | perk None
+10:10  ORDER  1188 Kabelo Dlamini | Regular | RELEASE | R475.00 | perk None
+10:20  ORDER  1070 Zanele Khumalo | Regular | RELEASE | R475.00 | perk None
+10:20  ORDER  1152 Lerato Van Der Merwe | New | RELEASE | R500.00 | perk None
+10:20  HOLD  1114 Johan Mokoena | Loyal | EXPLOIT | R500.00 | perk None
+10:30  ORDER  1050 Mpho Zulu | Regular | RELEASE | R475.00 | perk None
+10:30  ORDER  1072 Mpho Nkosi | New | RELEASE | R500.00 | perk None
+10:40  ORDER  1018 Mpho Ndlovu | Regular | RELEASE | R475.00 | perk None
+10:40  ORDER  1065 Sipho Nkosi | New | RELEASE | R500.00 | perk None
+10:40  ORDER  1072 Mpho Nkosi | Regular | RELEASE | R475.00 | perk None
+10:50  ORDER  1045 Johan Nkosi | Regular | RELEASE | R475.00 | perk None
+11:00  ORDER  1118 Zanele Zulu | New | RELEASE | R500.00 | perk None
+11:00  HOLD  1158 Thandi Naidoo | Loyal | HOLD | R500.00 | perk None
+11:00  ORDER  1131 Ayanda Zulu | Regular | RELEASE | R475.00 | perk None
+11:00  ORDER  1022 Naledi Dlamini | Regular | RELEASE | R475.00 | perk None
+11:10  HOLD  1184 Pieter Khumalo | New | HOLD | R500.00 | perk None
+11:10  ORDER  1038 Johan Botha | New | RELEASE | R500.00 | perk None
+11:10  ORDER  1067 Lerato Nkosi | Regular | RELEASE | R475.00 | perk None
+11:20  HOLD  1054 Johan Naidoo | Regular | EXPLOIT | R500.00 | perk None
+11:20  ORDER  1061 Naledi Khumalo | New | RELEASE | R500.00 | perk None
+11:30  ORDER  1161 Mpho Pillay | Loyal | RELEASE | R450.00 | perk Seat upgrade
+11:40  ORDER  1028 Kabelo Botha | New | RELEASE | R500.00 | perk None
+11:40  HOLD  1111 Naledi Ndlovu | Regular | HOLD | R500.00 | perk None
+11:50  ORDER  1152 Lerato Van Der Merwe | New | RELEASE | R500.00 | perk None
+12:00  DROP  Price drops to R470.00 | floor R351.41 | occ 42.22%
+12:00  COMP  Would owe 37 early buyers: R685.00
+12:00  ORDER  1022 Naledi Dlamini | Regular | RELEASE | R446.50 | perk None
+12:10  ORDER  1182 Zanele Van Der Merwe | Regular | RELEASE | R446.50 | perk None
+12:20  ORDER  1012 Kabelo Nkosi | Regular | RELEASE | R446.50 | perk None
+12:20  ORDER  1182 Zanele Van Der Merwe | Regular | RELEASE | R446.50 | perk None
+12:20  ORDER  1093 Naledi Nkosi | VIP | RELEASE | R407.14 | perk Seat upgrade
+12:20  ORDER  1112 Lerato Ndlovu | VIP | RELEASE | R407.14 | perk Seat upgrade
+12:30  ORDER  1142 Thandi Mokoena | Loyal | RELEASE | R423.00 | perk Seat upgrade
+12:30  ORDER  1016 Zanele Khumalo | Regular | RELEASE | R446.50 | perk None
+12:30  ORDER  1127 Thandi Nkosi | New | RELEASE | R470.00 | perk None
+12:30  ORDER  1052 Johan Zulu | Regular | RELEASE | R446.50 | perk None
+12:40  ORDER  1179 Thandi Naidoo | Regular | RELEASE | R446.50 | perk None
+12:40  ORDER  1083 Naledi Ndlovu | Regular | RELEASE | R446.50 | perk None
+12:50  HOLD  1002 Sipho Ndlovu | Regular | HOLD | R470.00 | perk None
+13:00  ORDER  1113 Sipho Khumalo | New | RELEASE | R470.00 | perk None
+13:00  ORDER  1025 Thandi Zulu | New | RELEASE | R470.00 | perk None
+13:30  ORDER  1116 Johan Ndlovu | New | RELEASE | R470.00 | perk None
+13:40  ORDER  1035 Zanele Zulu | New | RELEASE | R470.00 | perk None
+13:40  ORDER  1099 Thandi Naidoo | New | RELEASE | R470.00 | perk None
+14:00  DROP  Price drops to R420.00 | floor R315.42 | occ 62.22%
+14:00  COMP  Would owe 54 early buyers: R2,445.00
+14:20  HOLD  1191 Zanele Van Der Merwe | Regular | EXPLOIT | R420.00 | perk None
+14:30  ORDER  1015 Lerato Dlamini | Regular | RELEASE | R399.00 | perk None
+14:30  ORDER  1062 Pieter Dlamini | New | RELEASE | R420.00 | perk None
+14:30  OVERRIDE  Manager released the hold on Cust 1191 (reason: long-standing customer), R21.00 returned
+14:50  ORDER  1044 Zanele Ndlovu | VIP | RELEASE | R365.67 | perk Seat upgrade
+15:00  ORDER  1195 Kabelo Pillay | New | RELEASE | R420.00 | perk None
+15:10  ORDER  1156 Naledi Dlamini | New | RELEASE | R420.00 | perk None
+15:20  ORDER  1003 Lerato Dlamini | New | RELEASE | R420.00 | perk None
+15:50  ORDER  1186 Johan Mokoena | Loyal | RELEASE | R378.00 | perk Seat upgrade
+16:00  ORDER  1011 Sipho Mokoena | Loyal | RELEASE | R378.00 | perk Seat upgrade
+16:00  ORDER  1131 Ayanda Zulu | Regular | RELEASE | R399.00 | perk None
+16:10  ORDER  1126 Kabelo Mokoena | Regular | RELEASE | R399.00 | perk None
+16:20  ORDER  1090 Pieter Nkosi | Regular | RELEASE | R399.00 | perk None
+16:20  HOLD  1172 Mpho Van Der Merwe | Regular | HOLD | R420.00 | perk None
+16:30  HOLD  1054 Johan Naidoo | Regular | EXPLOIT | R420.00 | perk None
+16:30  ORDER  1187 Ayanda Naidoo | New | RELEASE | R420.00 | perk None
+16:40  ORDER  1133 Sipho Mokoena | New | RELEASE | R420.00 | perk None
+16:40  ORDER  1073 Thandi Ndlovu | Regular | RELEASE | R399.00 | perk None
+17:00  ORDER  1053 Mpho Khumalo | New | RELEASE | R420.00 | perk None
+17:10  ORDER  1078 Kabelo Pillay | New | RELEASE | R420.00 | perk None
+17:40  ORDER  1171 Zanele Botha | Loyal | RELEASE | R378.00 | perk Seat upgrade
+17:50  ORDER  1198 Pieter Naidoo | New | RELEASE | R420.00 | perk None
+17:50  ORDER  1119 Kabelo Naidoo | New | RELEASE | R420.00 | perk None
+
+END OF DAY - Bus
+Units sold: 78 of 90 seats
+Revenue: R35,578.95
+Discounts given: R1,121.05
+Discounts withheld: R215.50
+Compensation reported: R3,130.00
+Fairness holds: 13
+Manager overrides: 1

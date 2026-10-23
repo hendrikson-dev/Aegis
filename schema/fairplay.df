@@ -1,0 +1,728 @@
+ADD TABLE "ae_AiLog"
+  AREA "Schema Area"
+  DUMP-NAME "ae_ailog"
+
+ADD FIELD "LogID" OF "ae_AiLog" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "AiPoint" OF "ae_AiLog" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 3
+  MAX-WIDTH 40
+  ORDER 20
+
+ADD FIELD "AiResult" OF "ae_AiLog" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 40
+  ORDER 30
+
+ADD FIELD "Millis" OF "ae_AiLog" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 5
+  MAX-WIDTH 4
+  ORDER 40
+
+ADD FIELD "LoggedAt" OF "ae_AiLog" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 6
+  MAX-WIDTH 12
+  ORDER 50
+
+ADD INDEX "LogID" ON "ae_AiLog" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "LogID" ASCENDING 
+
+ADD TABLE "ae_Charter"
+  AREA "Schema Area"
+  DUMP-NAME "ae_charter"
+
+ADD FIELD "ClauseID" OF "ae_Charter" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 2
+  MAX-WIDTH 40
+  ORDER 10
+
+ADD FIELD "Version" OF "ae_Charter" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "EngineScope" OF "ae_Charter" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 100
+  ORDER 30
+
+ADD FIELD "Regime" OF "ae_Charter" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 5
+  MAX-WIDTH 40
+  ORDER 40
+
+ADD FIELD "RuleText" OF "ae_Charter" AS character 
+  FORMAT "x(255)"
+  INITIAL ""
+  POSITION 6
+  MAX-WIDTH 510
+  ORDER 50
+
+ADD FIELD "Active" OF "ae_Charter" AS logical 
+  FORMAT "yes/no"
+  INITIAL "no"
+  POSITION 7
+  MAX-WIDTH 1
+  ORDER 60
+
+ADD FIELD "EffectiveForm" OF "ae_Charter" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 8
+  MAX-WIDTH 12
+  ORDER 70
+
+ADD INDEX "ClauseID" ON "ae_Charter" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "ClauseID" ASCENDING 
+
+ADD INDEX "Version" ON "ae_Charter" 
+  AREA "Schema Area"
+  UNIQUE
+  INDEX-FIELD "Version" ASCENDING 
+
+ADD TABLE "ae_Exception"
+  AREA "Schema Area"
+  DUMP-NAME "ae_exception"
+
+ADD FIELD "ExceptionID" OF "ae_Exception" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "WarrantID" OF "ae_Exception" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "ExcState" OF "ae_Exception" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 40
+  ORDER 30
+
+ADD FIELD "ReasonCode" OF "ae_Exception" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 5
+  MAX-WIDTH 100
+  ORDER 40
+
+ADD FIELD "HandledBy" OF "ae_Exception" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 6
+  MAX-WIDTH 100
+  ORDER 50
+
+ADD FIELD "HandledAt" OF "ae_Exception" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 7
+  MAX-WIDTH 12
+  ORDER 60
+
+ADD INDEX "ExceptionID" ON "ae_Exception" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "ExceptionID" ASCENDING 
+
+ADD TABLE "ae_Proposal"
+  AREA "Schema Area"
+  DUMP-NAME "ae_proposal"
+
+ADD FIELD "ProposalID" OF "ae_Proposal" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "Engine" OF "ae_Proposal" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 3
+  MAX-WIDTH 100
+  ORDER 20
+
+ADD FIELD "Subject" OF "ae_Proposal" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 100
+  ORDER 30
+
+ADD FIELD "Kind" OF "ae_Proposal" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 5
+  MAX-WIDTH 100
+  ORDER 40
+
+ADD FIELD "BaseValue" OF "ae_Proposal" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 6
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 50
+
+ADD FIELD "ProposedValue" OF "ae_Proposal" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 7
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 60
+
+ADD FIELD "FloorValue" OF "ae_Proposal" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 8
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 70
+
+ADD FIELD "ProposedText" OF "ae_Proposal" AS character 
+  FORMAT "x(255)"
+  INITIAL ""
+  POSITION 9
+  MAX-WIDTH 510
+  ORDER 80
+
+ADD FIELD "TextSource" OF "ae_Proposal" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 10
+  MAX-WIDTH 40
+  ORDER 90
+
+ADD FIELD "CreatedAt" OF "ae_Proposal" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 11
+  MAX-WIDTH 12
+  ORDER 100
+
+ADD INDEX "ProposalID" ON "ae_Proposal" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "ProposalID" ASCENDING 
+
+ADD TABLE "ae_Regime"
+  AREA "Schema Area"
+  DUMP-NAME "ae_regime"
+
+ADD FIELD "RegimeID" OF "ae_Regime" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "Regime" OF "ae_Regime" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 3
+  MAX-WIDTH 40
+  ORDER 20
+
+ADD FIELD "DeclaredBy" OF "ae_Regime" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 100
+  ORDER 30
+
+ADD FIELD "Reason" OF "ae_Regime" AS character 
+  FORMAT "x(255)"
+  INITIAL ""
+  POSITION 5
+  MAX-WIDTH 510
+  ORDER 40
+
+ADD FIELD "DeclaredAt" OF "ae_Regime" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 6
+  MAX-WIDTH 12
+  ORDER 50
+
+ADD FIELD "WarrantID" OF "ae_Regime" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 7
+  MAX-WIDTH 4
+  ORDER 60
+
+ADD INDEX "RegimeID" ON "ae_Regime" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "RegimeID" ASCENDING 
+
+ADD TABLE "ae_Warrant"
+  AREA "Schema Area"
+  DUMP-NAME "ae_warrant"
+
+ADD FIELD "WarrantID" OF "ae_Warrant" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "ProposalID" OF "ae_Warrant" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "CharterVersion" OF "ae_Warrant" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 4
+  MAX-WIDTH 4
+  ORDER 30
+
+ADD FIELD "Regime" OF "ae_Warrant" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 5
+  MAX-WIDTH 40
+  ORDER 40
+
+ADD FIELD "Clauses" OF "ae_Warrant" AS character 
+  FORMAT "x(100)"
+  INITIAL ""
+  POSITION 6
+  MAX-WIDTH 200
+  ORDER 50
+
+ADD FIELD "Ruling" OF "ae_Warrant" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 7
+  MAX-WIDTH 40
+  ORDER 60
+
+ADD FIELD "ReasonCode" OF "ae_Warrant" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 8
+  MAX-WIDTH 100
+  ORDER 70
+
+ADD FIELD "Authorizer" OF "ae_Warrant" AS character 
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 9
+  MAX-WIDTH 100
+  ORDER 80
+
+ADD FIELD "CustNum" OF "ae_Warrant" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 10
+  MAX-WIDTH 4
+  ORDER 90
+
+ADD FIELD "SealedAt" OF "ae_Warrant" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 11
+  MAX-WIDTH 12
+  ORDER 100
+
+ADD FIELD "PrevFingerprint" OF "ae_Warrant" AS character 
+  FORMAT "x(255)"
+  INITIAL ""
+  POSITION 12
+  MAX-WIDTH 510
+  ORDER 110
+
+ADD INDEX "WarrantID" ON "ae_Warrant" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "WarrantID" ASCENDING 
+
+ADD INDEX "CustNum" ON "ae_Warrant" 
+  AREA "Schema Area"
+  UNIQUE
+  INDEX-FIELD "CustNum" ASCENDING 
+
+ADD INDEX "ProposalID" ON "ae_Warrant" 
+  AREA "Schema Area"
+  UNIQUE
+  INDEX-FIELD "ProposalID" ASCENDING 
+
+ADD TABLE "fp_Behaviour"
+  AREA "Schema Area"
+  DUMP-NAME "fp_behaviour"
+
+ADD FIELD "BehaviourID" OF "fp_Behaviour" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "CustNum" OF "fp_Behaviour" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "ActiveStatus" OF "fp_Behaviour" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 16
+  ORDER 30
+
+ADD FIELD "BookingBehaviour" OF "fp_Behaviour" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 5
+  MAX-WIDTH 16
+  ORDER 40
+
+ADD FIELD "RiskLevel" OF "fp_Behaviour" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 6
+  MAX-WIDTH 4
+  ORDER 50
+
+ADD FIELD "Description" OF "fp_Behaviour" AS character 
+  FORMAT "x(60)"
+  INITIAL ""
+  POSITION 7
+  MAX-WIDTH 16
+  ORDER 60
+
+ADD FIELD "BehaviourCode" OF "fp_Behaviour" AS character 
+  FORMAT "x(25)"
+  INITIAL ""
+  POSITION 9
+  MAX-WIDTH 16
+  ORDER 70
+
+ADD INDEX "BehaviourID" ON "fp_Behaviour" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "BehaviourID" ASCENDING 
+
+ADD INDEX "CustNum" ON "fp_Behaviour" 
+  AREA "Schema Area"
+  INDEX-FIELD "CustNum" ASCENDING 
+
+ADD TABLE "fp_Booking"
+  AREA "Schema Area"
+  DUMP-NAME "fp_booking"
+
+ADD FIELD "BookingNum" OF "fp_Booking" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "CustNum" OF "fp_Booking" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "PricePaid" OF "fp_Booking" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 4
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 30
+
+ADD FIELD "BookDate" OF "fp_Booking" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  POSITION 5
+  MAX-WIDTH 4
+  ORDER 40
+
+ADD INDEX "BookingNum" ON "fp_Booking" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "BookingNum" ASCENDING 
+
+ADD INDEX "CustNum" ON "fp_Booking" 
+  AREA "Schema Area"
+  INDEX-FIELD "CustNum" ASCENDING 
+
+ADD TABLE "fp_Credit"
+  AREA "Schema Area"
+  DUMP-NAME "fp_credit"
+
+ADD FIELD "CreditID" OF "fp_Credit" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "CustNum" OF "fp_Credit" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "Amount" OF "fp_Credit" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 4
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 30
+
+ADD FIELD "IssuedDate" OF "fp_Credit" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  POSITION 5
+  MAX-WIDTH 4
+  ORDER 40
+
+ADD FIELD "ExpiryDate" OF "fp_Credit" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  POSITION 6
+  MAX-WIDTH 4
+  ORDER 50
+
+ADD FIELD "CreditState" OF "fp_Credit" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  POSITION 7
+  MAX-WIDTH 16
+  ORDER 60
+
+ADD FIELD "SourceBooking" OF "fp_Credit" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 8
+  MAX-WIDTH 4
+  ORDER 70
+
+ADD INDEX "CreditID" ON "fp_Credit" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "CreditID" ASCENDING 
+
+ADD INDEX "CustNum" ON "fp_Credit" 
+  AREA "Schema Area"
+  INDEX-FIELD "CustNum" ASCENDING 
+
+ADD INDEX "SourceBooking" ON "fp_Credit" 
+  AREA "Schema Area"
+  INDEX-FIELD "SourceBooking" ASCENDING 
+
+ADD TABLE "fp_Customer"
+  AREA "Schema Area"
+  DUMP-NAME "fp_customer"
+
+ADD FIELD "CustNum" OF "fp_Customer" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "Name" OF "fp_Customer" AS character 
+  FORMAT "x(30)"
+  INITIAL ""
+  POSITION 3
+  MAX-WIDTH 16
+  ORDER 20
+
+ADD FIELD "Phone" OF "fp_Customer" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 16
+  ORDER 30
+
+ADD FIELD "RegDate" OF "fp_Customer" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  POSITION 6
+  MAX-WIDTH 4
+  ORDER 40
+
+ADD INDEX "CustNum" ON "fp_Customer" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "CustNum" ASCENDING 
+
+ADD TABLE "fp_Profile"
+  AREA "Schema Area"
+  DUMP-NAME "fp_profile"
+
+ADD FIELD "ProfileName" OF "fp_Profile" AS character 
+  FORMAT "x(15)"
+  INITIAL ""
+  POSITION 2
+  MAX-WIDTH 30
+  ORDER 10
+
+ADD FIELD "UnitName" OF "fp_Profile" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  POSITION 3
+  MAX-WIDTH 20
+  ORDER 20
+
+ADD FIELD "Capacity" OF "fp_Profile" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 4
+  MAX-WIDTH 4
+  ORDER 30
+
+ADD FIELD "StartPrice" OF "fp_Profile" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 5
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 40
+
+ADD FIELD "Drop1Price" OF "fp_Profile" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 6
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 50
+
+ADD FIELD "Drop2Price" OF "fp_Profile" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 7
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 60
+
+ADD FIELD "MarginalCost" OF "fp_Profile" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 8
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 70
+
+ADD FIELD "WindowHours" OF "fp_Profile" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 10
+  MAX-WIDTH 4
+  ORDER 80
+
+ADD INDEX "ProfileName" ON "fp_Profile" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "ProfileName" ASCENDING 
+
+ADD TABLE "fp_Segment"
+  AREA "Schema Area"
+  DUMP-NAME "fp_segment"
+
+ADD FIELD "SegName" OF "fp_Segment" AS character 
+  FORMAT "x(15)"
+  INITIAL ""
+  POSITION 2
+  MAX-WIDTH 16
+  ORDER 10
+
+ADD FIELD "MinOrders" OF "fp_Segment" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 3
+  MAX-WIDTH 4
+  ORDER 20
+
+ADD FIELD "MinSpend" OF "fp_Segment" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 4
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 30
+
+ADD FIELD "FloorPct" OF "fp_Segment" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 5
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 40
+
+ADD FIELD "DiscountPct" OF "fp_Segment" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 6
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 50
+
+ADD INDEX "SegName" ON "fp_Segment" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "SegName" ASCENDING 
+
+.
+PSC
+cpstream=ISO8859-1
+.
+0000013882

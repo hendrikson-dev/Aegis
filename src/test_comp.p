@@ -1,0 +1,12 @@
+DEFINE VARIABLE dComp AS DECIMAL   NO-UNDO.
+DEFINE VARIABLE cPerk AS CHARACTER NO-UNDO.
+
+
+
+RUN fp_comp_perk.p (INPUT 1, INPUT 1, INPUT 420.00, INPUT 420.00, INPUT NO, INPUT 'RELEASE',
+                    OUTPUT dComp, OUTPUT cPerk).
+MESSAGE 'Test 1:' dComp '|' cPerk VIEW-AS ALERT-BOX.
+
+RUN fp_comp_perk.p (INPUT 1, INPUT 1, INPUT 420.00, INPUT 420.00, INPUT YES, INPUT 'RELEASE',
+                    OUTPUT dComp, OUTPUT cPerk).
+MESSAGE 'Test 2:' dComp '|' cPerk VIEW-AS ALERT-BOX.

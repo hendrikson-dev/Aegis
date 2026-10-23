@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FairPlay — Live Display</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0b0d12; color: #e8ecf1;
+    display: flex; height: 100vh; overflow: hidden;
+  }
+  #slides {
+    flex: 1; padding: 60px; overflow-y: auto;
+    background: linear-gradient(135deg, #0f1420 0%, #1a2130 100%);
+  }
+  #slides h1 {
+    font-size: 3.2rem; color: #6ad4ff; margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  #slides h2 {
+    font-size: 1.8rem; color: #a5b4c8; font-weight: 400;
+    margin-bottom: 40px;
+  }
+  #slides ul { list-style: none; }
+  #slides li {
+    font-size: 1.4rem; line-height: 2.2; padding-left: 32px;
+    position: relative; color: #d0d8e4;
+  }
+  #slides li::before {
+    content: "›"; position: absolute; left: 0;
+    color: #6ad4ff; font-weight: bold; font-size: 1.6rem;
+  }
+  #slideNav {
+    position: absolute; bottom: 24px; left: 60px;
+    color: #4a5568; font-size: 0.9rem;
+  }
+
+  #live {
+    width: 480px; background: #070a0f; border-left: 1px solid #1e2634;
+    padding: 24px; overflow-y: auto; display: flex; flex-direction: column;
+  }
+  #badge {
+    display: inline-block; padding: 6px 14px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    margin-bottom: 20px; align-self: flex-start;
+  }
+  #badge.live { background: #1e4620; color: #6aff8b; }
+  #badge.replay { background: #1e2a44; color: #6ab4ff; }
+  #badge.end { background: #44201e; color: #ff9a6a; }
+
+  #clock {
+    font-size: 2.6rem; font-weight: 700; color: #fff;
+    font-variant-numeric: tabular-nums; margin-bottom: 8px;
+  }
+
+  .metric {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 10px 0; border-bottom: 1px solid #141a24;
+  }
+  .metric .label { color: #6b7a90; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .metric .value { font-size: 1.3rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .metric .value.price { color: #6ad4ff; }
+  .metric .value.money { color: #6aff8b; }
+  .metric .value.warn { color: #ffb86a; }
+  .metric .value.hold { color: #ff8a8a; }
+  .arrow-down { color: #ff8a8a; font-size: 0.9rem; margin-left: 8px; }
+
+  #feedTitle {
+    margin-top: 24px; margin-bottom: 10px;
+    color: #6b7a90; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+  }
+  #feed { flex: 1; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 0.8rem; }
+  .evt {
+    padding: 6px 0; border-bottom: 1px solid #0f141c;
+    display: flex; gap: 10px;
+  }
+  .evt .t { color: #4a5568; min-width: 48px; }
+  .evt .k { font-weight: 700; min-width: 68px; }
+  .evt .k.ORDER  { color: #6aff8b; }
+  .evt .k.HOLD   { color: #ff8a8a; }
+  .evt .k.COMP   { color: #6ab4ff; }
+  .evt .k.DROP   { color: #ffb86a; }
+  .evt .k.OVERRIDE { color: #d68aff; }
+  .evt .x { color: #a5b4c8; flex: 1; }
+
+  #footer {
+    margin-top: 16px; padding-top: 12px; border-top: 1px solid #1e2634;
+    font-size: 0.7rem; color: #4a5568; text-align: center;
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+
+  body.live-only #slides { display: none; }
+  body.live-only #live { width: 100%; }
+  body.slides-only #live { display: none; }
+  body.fullscreen #slides { padding: 80px; }
+</style>
+</head>
+<body>
+
+<div id="slides"></div>
+<div id="slideNav"></div>
+
+<div id="live">
+  <div id="badge" class="replay">REPLAY</div>
+  <div id="clock">--:--</div>
+
+  <div class="metric">
+    <span class="label">Price</span>
+    <span class="value price" id="mPrice">R—</span>
+  </div>
+    <div class="metric">
+    <span class="label" id="mSeatsLabel">Seats Sold</span>
+    <span class="value" id="mSeats">— / —</span>
+  </div>
+  <div class="metric">
+    <span class="label">Revenue</span>
+    <span class="value money" id="mRevenue">R—</span>
+  </div>
+  <div class="metric">
+    <span class="label">Compensation</span>
+    <span class="value money" id="mComp">R—</span>
+  </div>
+  <div class="metric">
+    <span class="label">Discounts Withheld</span>
+    <span class="value warn" id="mWithheld">R—</span>
+  </div>
+  <div class="metric">
+    <span class="label">Fairness Holds</span>
+    <span class="value hold" id="mHolds">—</span>
+  </div>
+  <div class="metric">
+    <span class="label">Manager Overrides</span>
+    <span class="value" id="mOverrides">—</span>
+  </div>
+    <div class="metric">
+    <span class="label">Avg Price Paid</span>
+    <span class="value price" id="mAvg">R—</span>
+  </div>
+
+  <div id="feedTitle">Live Feed</div>
+  <div id="feed"></div>
+
+  <div id="footer">⚠ Simulated Data — FairPlay v1</div>
+</div>
+
+<script>
+/* Slides */
+const SLIDES = [
+  { t: "FairPlay",
+    s: "A behaviour-aware pricing engine",
+    l: ["Rewards loyalty", "Blocks exploitation", "Makes fairness visible"] },
+
+  { t: "The Problem",
+    s: "Every dynamic price creates unfairness",
+    l: ["Waiters exploit price drops",
+        "Loyal customers pay full price",
+        "The business cannot tell the difference"] },
+
+  { t: "The Fairness Engine",
+    s: "Behaviour drives the price",
+    l: ["RELEASE — normal discount applies",
+        "HOLD — discount blocked, floor still protects",
+        "EXPLOIT — same as HOLD, logged for review"] },
+
+  { t: "Compensation",
+    s: "Early buyers are paid back when price drops",
+    l: ["Reports what is owed, in real-time",
+        "Capped at marginal cost",
+        "Redeemed over future bookings"] },
+
+  { t: "The Result",
+    s: "Fair pricing, visible in real time",
+    l: ["Same segment, different price",
+        "Behaviour changes behaviour",
+        "Every decision is auditable"] }
+];
+
+let slideIdx = 0;
+function renderSlide() {
+  const s = SLIDES[slideIdx];
+  document.getElementById('slides').innerHTML =
+    `<h1>${s.t}</h1><h2>${s.s}</h2><ul>${s.l.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  document.getElementById('slideNav').textContent =
+    `Slide ${slideIdx+1} of ${SLIDES.length} — ← → to navigate, F fullscreen, L live, S slides, B both`;
+}
+renderSlide();
+
+/* Live Feed */
+let lastFeed = null;
+let lastChange = Date.now();
+let lastPrice = null;
+let mode = 'replay'; 
+let replayIdx = 0;
+let replayEvents = [];
+
+function fmtR(n) { return 'R' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+function renderLive(d) {
+    const [time, price, sold, cap, revenue, comp, withheld, holds, overrides, avgPrice, events, done, unitName] = d;
+
+  document.getElementById('clock').textContent = time;
+  document.getElementById('mSeats').textContent = `${sold} / ${cap}`;
+document.getElementById('mSeatsLabel').textContent = (unitName || 'seats') + ' Sold';
+  document.getElementById('mRevenue').textContent = fmtR(revenue);
+  document.getElementById('mComp').textContent = fmtR(comp);
+  document.getElementById('mWithheld').textContent = fmtR(withheld);
+  document.getElementById('mHolds').textContent = holds;
+  document.getElementById('mOverrides').textContent = overrides;
+  document.getElementById('mAvg').textContent = fmtR(avgPrice);
+
+  const priceEl = document.getElementById('mPrice');
+  let arrow = '';
+  if (lastPrice !== null && price < lastPrice) arrow = ' <span class="arrow-down">▼</span>';
+  priceEl.innerHTML = fmtR(price) + arrow;
+  lastPrice = price;
+
+  const feedEl = document.getElementById('feed');
+  if (events && events.length > 0) {
+    const list = events.split('#').map(e => {
+      const [t, k, x] = e.split('^');
+      return `<div class="evt"><span class="t">${t}</span><span class="k ${k}">${k}</span><span class="x">${x||''}</span></div>`;
+    }).reverse();
+    feedEl.innerHTML = list.join('');
+  }
+
+  const badge = document.getElementById('badge');
+  if (done === 1) {
+    badge.className = 'end'; badge.textContent = 'END OF DAY';
+    mode = 'end';
+  } else {
+    badge.className = 'live'; badge.textContent = 'LIVE SIMULATION';
+    mode = 'live';
+  }
+}
+
+function tick() {
+  const old = document.getElementById('feedScript');
+  if (old) old.remove();
+  const s = document.createElement('script');
+  s.id = 'feedScript';
+  s.src = 'feed.js?_=' + Date.now();
+  s.onload = () => {
+    if (window.FAIRPLAY) {
+      const stamp = JSON.stringify(window.FAIRPLAY);
+      if (stamp !== lastFeed) { lastFeed = stamp; lastChange = Date.now(); }
+      renderLive(window.FAIRPLAY);
+    }
+  };
+  s.onerror = () => {  };
+  document.head.appendChild(s);
+
+  if (Date.now() - lastChange > 6000 && mode !== 'replay') {
+    startReplay();
+  }
+}
+
+/* Replay */
+function startReplay() {
+  mode = 'replay';
+  const badge = document.getElementById('badge');
+  badge.className = 'replay'; badge.textContent = 'REPLAY';
+  replayIdx = 0;
+  replayEvents = [];
+}
+
+function buildReplayFrame(t) {
+  const mins = 480 + t * 10;
+  const hh = Math.floor(mins / 60);
+  const mm = mins % 60;
+  const time = String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+  let price = 500;
+  if (mins >= 720) price = 470;
+  if (mins >= 840) price = 420;
+
+  const sold = Math.min(90, Math.floor(t * 1.5 + Math.random() * 2));
+  const revenue = sold * 460;
+  const comp = t < 24 ? 0 : (t < 36 ? 1200 + t * 40 : 3200 + t * 60);
+  const withheld = Math.floor(sold * 0.12) * 25;
+  const holds = Math.floor(sold * 0.11);
+  const overrides = t >= 40 ? 1 : 0;
+
+  if (t === 24)  replayEvents.push(['12:00','DROP','Price drops to R470']);
+  if (t === 24)  replayEvents.push(['12:00','COMP','Would owe 42 early buyers: R1,260']);
+  if (t === 36)  replayEvents.push(['14:00','DROP','Price drops to R420']);
+  if (t === 36)  replayEvents.push(['14:00','COMP','Would owe 58 early buyers: R2,900']);
+  if (t === 39)  replayEvents.push(['14:30','OVERRIDE','Manager released one hold']);
+  if (t % 5 === 0 && t > 3)
+    replayEvents.push([time, t % 20 === 0 ? 'HOLD' : 'ORDER',
+                       'Cust ' + (1000 + Math.floor(Math.random()*200)) + ' | Regular | R' + price]);
+
+  if (replayEvents.length > 12) replayEvents = replayEvents.slice(-12);
+  const events = replayEvents.map(e => e.join('^')).join('#');
+  const avgPrice = sold > 0 ? revenue / sold : 0;
+  return [time, price, sold, 90, revenue, comp, withheld, holds, overrides, avgPrice, events, 0, 'seats'];
+}
+
+setInterval(() => {
+  tick();
+  if (mode === 'replay') {
+    replayIdx = (replayIdx + 1) % 60;
+    renderLive(buildReplayFrame(replayIdx));
+    if (replayIdx === 0) replayEvents = [];
+  }
+}, 1000);
+
+/* Shortcuts */
+document.addEventListener('keydown', e => {
+  const b = document.body;
+  switch (e.key) {
+    case 'ArrowRight': slideIdx = (slideIdx+1) % SLIDES.length; renderSlide(); break;
+    case 'ArrowLeft':  slideIdx = (slideIdx-1+SLIDES.length) % SLIDES.length; renderSlide(); break;
+    case 'f': case 'F':
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+      break;
+    case 'l': case 'L': b.classList.toggle('live-only'); break;
+    case 's': case 'S': b.classList.toggle('slides-only'); break;
+    case 'b': case 'B': b.classList.remove('live-only','slides-only'); break;
+  }
+});
+</script>
+</body>
+</html>
