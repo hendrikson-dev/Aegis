@@ -5,7 +5,7 @@ DEFINE INPUT  PARAMETER dMarginalCost  AS DECIMAL    NO-UNDO.
 DEFINE INPUT  PARAMETER dOccupancy     AS DECIMAL    NO-UNDO.
 DEFINE INPUT  PARAMETER dHoursLeft     AS DECIMAL    NO-UNDO.
 DEFINE INPUT  PARAMETER dWindow        AS DECIMAL    NO-UNDO.
-DEFINE OUTPUT PARAMETER dFinalPrice    AS DECIMAL    NO-UNDO.
+DEFINE OUTPUT PARAMETER oProposalID    AS INTEGER    NO-UNDO.
 DEFINE OUTPUT PARAMETER cReason        AS CHARACTER  NO-UNDO.
 
 DEFINE VARIABLE cSegment     AS CHARACTER  NO-UNDO.
@@ -16,6 +16,8 @@ DEFINE VARIABLE dDiscounted  AS DECIMAL    NO-UNDO.
 DEFINE VARIABLE dFloor       AS DECIMAL    NO-UNDO.
 DEFINE VARIABLE cFloorState  AS CHARACTER  NO-UNDO.
 DEFINE VARIABLE cFairness    AS CHARACTER  NO-UNDO.
+
+DEFINE VARIABLE dFinalPrice  AS DECIMAL    NO-UNDO.
 
 dFinalPrice = dBasePrice.
 
@@ -45,6 +47,16 @@ ELSE
     ASSIGN dFinalPrice = dDiscounted cFloorState = 'ok'.
 
 dFinalPrice = ROUND(dFinalPrice, 2).
+
+CREATE ae_Proposal.
+ASSIGN ae_Proposal.ProposalID    = NEXT-VALUE(ae_ProposalSeq)
+       ae_Proposal.Engine        = "Strategy"
+       ae_Proposal.BaseValue     = dBasePrice
+       ae_Proposal.ProposedValue = dFinalPrice
+       ae_Proposal.FloorValue    = dFloor
+       ae_Proposal.TextSource    = "MOCK".
+
+oProposalID = ae_Proposal.ProposalID.
 
 cReason = '[SEGMENT] ' + cSegment
         + ' | [DISCOUNT] ' + TRIM(STRING(dDiscountPct, '>>9.99')) + '%'
