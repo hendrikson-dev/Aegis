@@ -1,5 +1,5 @@
 DEFINE VARIABLE cList AS CHARACTER NO-UNDO
-    INITIAL "fp_seed.p,seed_profile.p,seed_day4.p,reset_sim.p,gen_data.p,seed_demo.p,check_demo.p".
+    INITIAL "fp_seed.p,seed_profile.p,ae_charter_seed.p,seed_day4.p,reset_sim.p,gen_data.p,seed_demo.p,check_demo.p".
 DEFINE VARIABLE i AS INTEGER NO-UNDO.
 
 DO i = 1 TO NUM-ENTRIES(cList):
@@ -14,5 +14,5 @@ DO i = 1 TO NUM-ENTRIES(cList):
     RUN VALUE(ENTRY(i, cList)).
 END.
 
-MESSAGE "Rebuild finished. Now run tests.bat. Expect 7 PASS."
+MESSAGE "Rebuild finished. Run tests.bat (expect 7 PASS), then count.bat."
     VIEW-AS ALERT-BOX INFORMATION.

@@ -1,1 +1,1 @@
-@call "%~dp0fairplay.bat" rebuild
+@call "%~dp0aegis.bat" rebuild

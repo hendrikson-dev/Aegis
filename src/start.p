@@ -1,5 +1,3 @@
-MESSAGE "start.p is running" VIEW-AS ALERT-BOX.
-
 DEFINE VARIABLE cBase   AS CHARACTER NO-UNDO.
 DEFINE VARIABLE cAction AS CHARACTER NO-UNDO.
 
@@ -7,14 +5,14 @@ cBase   = OS-GETENV("FAIRPLAY_DIR").
 cAction = OS-GETENV("FAIRPLAY_ACTION").
 
 IF cBase = "" OR cBase = ? THEN DO:
-    MESSAGE "Start FairPlay with demo.bat, tests.bat or rebuild.bat."
+    MESSAGE "Start Agies with demo.bat, tests.bat or rebuild.bat."
         VIEW-AS ALERT-BOX ERROR.
     RETURN.
 END.
 
 IF cAction = "" OR cAction = ? THEN cAction = "demo".
 
-PROPATH = PROPATH + "," + cBase + "\src" + "," + cBase + "\seed".
+PROPATH = PROPATH + "," + cBase + "\src" + "," + cBase + "\seed" + "," + OS-GETENV("DLC") + "\gui\netlib\OpenEdge.Net.pl".
 
 IF SEARCH("fp_classify.p") = ? THEN DO:
     MESSAGE "Cannot find fp_classify.p." SKIP
@@ -31,6 +29,7 @@ CASE cAction:
         RUN test_break.p.
     END.
     WHEN "rebuild" THEN RUN rebuild_seed.p.
+    WHEN "count"   THEN RUN test_count.p.
     OTHERWISE
         MESSAGE "Unknown action: " + cAction
             VIEW-AS ALERT-BOX ERROR.

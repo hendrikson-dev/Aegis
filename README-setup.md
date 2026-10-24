@@ -1,6 +1,8 @@
 ## Setup instructions
 
-You need Progress OpenEdge (Developers Kit: Classroom Edition) installed. This was built and tested on OpenEdge <ADD YOUR VERSION>, Windows.
+You need Progress OpenEdge (Developers Kit: Classroom Edition) installed. This was built and tested on OpenEdge 12.8, Windows.
+
+You also need a Groq API key set in your Windows Environment Variables as `agies_ai_key` for the real AI features to work. If the key is missing, the system will safely fall back to templates.
 
 ## First run (or after deleting the db folder)
 
@@ -14,9 +16,9 @@ Only one OpenEdge session can use the database at a time, so close other windows
 ## Running programs in the editor
 
 1. Always open the editor with `workbench.bat`. It starts the editor in the project folder.
-2. In each new editor session, run this once before running any program:
+2. In each new editor session, run this once before running any program (this includes the `netlib` path required for the AI to connect over HTTPS):
 
-   PROPATH = PROPATH + ',src,seed'.
+   PROPATH = PROPATH + ',src,seed,' + OS-GETENV('DLC') + '\gui\netlib\OpenEdge.Net.pl'.
 
 3. To check it worked:
 
@@ -28,6 +30,6 @@ The setting lasts only for that editor session, so repeat step 2 each time you r
 
 ## Usage guide
 
-- **Demo (shadow run):** double-click `demo.bat`. The display page opens, and the simulator feeds it simulated orders. FairPlay reports what it would hold and what it would owe.
-- **Tests:** double-click `tests.bat`.
+- **Demo (shadow run):** double-click `demo.bat`. The display page opens, and the simulator feeds it simulated orders. Aegis reports what the Steward admits or denies, seals the Warrant, and generates the customer receipt.
+- **Tests:** double-click `tests.bat` (runs both the 7 original FairPlay tests and the 5 Aegis Steward tests).
 - **Start over:** delete the `db` folder and repeat steps 2 to 4.

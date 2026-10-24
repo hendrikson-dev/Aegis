@@ -1,179 +1,171 @@
 FAIRPLAY SIMULATED DAY - Bus (simulated data)
-08:00  ORDER  1094 Pieter Zulu | Regular | RELEASE | R475.00 | perk None
-08:00  WARRANT  ID 100 | Admit | PR-1
-08:00  ORDER  1140 Lerato Zulu | Regular | RELEASE | R475.00 | perk None
-08:00  WARRANT  ID 101 | Admit | PR-1
-08:10  ORDER  1092 Johan Zulu | Regular | RELEASE | R475.00 | perk None
-08:10  WARRANT  ID 102 | Admit | PR-1
-08:30  ORDER  1189 Mpho Zulu | Loyal | RELEASE | R450.00 | perk Seat upgrade
-08:30  WARRANT  ID 103 | Admit | PR-1
-08:40  ORDER  1061 Naledi Khumalo | New | RELEASE | R500.00 | perk None
-08:40  WARRANT  ID 104 | Admit | PR-1
-09:00  ORDER  1024 Naledi Van Der Merwe | Regular | RELEASE | R475.00 | perk None
-09:00  WARRANT  ID 105 | Admit | PR-1
-09:40  ORDER  1200 Zanele Khumalo | Loyal | RELEASE | R450.00 | perk Seat upgrade
-09:40  WARRANT  ID 106 | Admit | PR-1
-09:40  ORDER  1094 Pieter Zulu | Regular | RELEASE | R475.00 | perk None
-09:40  WARRANT  ID 107 | Admit | PR-1
+08:00  ORDER  1034 Thandi Dlamini | Regular | RELEASE | R475.00 | perk None
+08:00  WARRANT  ID 5 | Admit | PR-1
+08:00  HOLD  1110 Thandi Van Der Merwe | New | EXPLOIT | R500.00 | perk None
+08:00  WARRANT  ID 6 | Admit | PR-1
+08:30  ORDER  1004 Sipho Khumalo | New | RELEASE | R500.00 | perk None
+08:30  WARRANT  ID 7 | Admit | PR-1
+08:40  ORDER  1182 Zanele Van Der Merwe | Regular | RELEASE | R475.00 | perk None
+08:40  WARRANT  ID 8 | Admit | PR-1
+08:50  ORDER  1193 Lerato Nkosi | Regular | RELEASE | R475.00 | perk None
+08:50  WARRANT  ID 9 | Admit | PR-1
+08:50  ORDER  1064 Ayanda Pillay | Regular | RELEASE | R475.00 | perk None
+08:50  WARRANT  ID 10 | Admit | PR-1
+09:00  ORDER  1185 Pieter Dlamini | New | RELEASE | R500.00 | perk None
+09:00  WARRANT  ID 11 | Admit | PR-1
+09:00  ORDER  1069 Lerato Dlamini | Regular | RELEASE | R475.00 | perk None
+09:00  WARRANT  ID 12 | Admit | PR-1
+09:10  ORDER  1032 Johan Dlamini | New | RELEASE | R500.00 | perk None
+09:10  WARRANT  ID 13 | Admit | PR-1
+09:30  HOLD  1123 Ayanda Van Der Merwe | New | HOLD | R500.00 | perk None
+09:30  WARRANT  ID 14 | Admit | PR-1
+09:40  HOLD  1172 Mpho Van Der Merwe | New | HOLD | R500.00 | perk None
+09:40  WARRANT  ID 15 | Admit | PR-1
 09:50  ORDER  1001 Thandi Mokoena | Regular | RELEASE | R475.00 | perk None
-09:50  WARRANT  ID 108 | Admit | PR-1
-10:00  HOLD  1079 Thandi Nkosi | New | EXPLOIT | R500.00 | perk None
-10:00  WARRANT  ID 109 | Admit | PR-1
-10:00  ORDER  1180 Pieter Naidoo | New | RELEASE | R500.00 | perk None
-10:00  WARRANT  ID 110 | Admit | PR-1
-10:00  ORDER  1021 Lerato Pillay | New | RELEASE | R500.00 | perk None
-10:00  WARRANT  ID 111 | Admit | PR-1
-10:10  HOLD  1141 Zanele Botha | Regular | HOLD | R500.00 | perk None
-10:10  WARRANT  ID 112 | Admit | PR-1
-10:20  ORDER  1177 Sipho Van Der Merwe | Regular | RELEASE | R475.00 | perk None
-10:20  WARRANT  ID 113 | Admit | PR-1
-10:20  ORDER  1200 Zanele Khumalo | Loyal | RELEASE | R450.00 | perk Seat upgrade
-10:20  WARRANT  ID 114 | Admit | PR-1
-10:20  HOLD  1138 Sipho Khumalo | Loyal | EXPLOIT | R500.00 | perk None
-10:20  WARRANT  ID 115 | Admit | PR-1
-10:30  ORDER  1195 Kabelo Pillay | New | RELEASE | R500.00 | perk None
-10:30  WARRANT  ID 116 | Admit | PR-1
-10:30  ORDER  1012 Kabelo Nkosi | Regular | RELEASE | R475.00 | perk None
-10:30  WARRANT  ID 117 | Admit | PR-1
-10:30  ORDER  1080 Kabelo Dlamini | Loyal | RELEASE | R450.00 | perk Seat upgrade
-10:30  WARRANT  ID 118 | Admit | PR-1
-10:40  ORDER  1003 Lerato Dlamini | New | RELEASE | R500.00 | perk None
-10:40  WARRANT  ID 119 | Admit | PR-1
-10:40  ORDER  1161 Mpho Pillay | Loyal | RELEASE | R450.00 | perk Seat upgrade
-10:40  WARRANT  ID 120 | Admit | PR-1
+09:50  WARRANT  ID 16 | Admit | PR-1
+10:00  ORDER  1188 Kabelo Dlamini | Regular | RELEASE | R475.00 | perk None
+10:00  WARRANT  ID 17 | Admit | PR-1
+10:00  ORDER  1094 Pieter Zulu | Regular | RELEASE | R475.00 | perk None
+10:00  WARRANT  ID 18 | Admit | PR-1
+10:10  HOLD  1031 Pieter Mokoena | New | EXPLOIT | R500.00 | perk None
+10:10  WARRANT  ID 19 | Admit | PR-1
+10:10  ORDER  1188 Kabelo Dlamini | Regular | RELEASE | R475.00 | perk None
+10:10  WARRANT  ID 20 | Admit | PR-1
+10:20  ORDER  1070 Zanele Khumalo | Regular | RELEASE | R475.00 | perk None
+10:20  WARRANT  ID 21 | Admit | PR-1
+10:20  ORDER  1152 Lerato Van Der Merwe | New | RELEASE | R500.00 | perk None
+10:20  WARRANT  ID 22 | Admit | PR-1
+10:20  HOLD  1114 Johan Mokoena | Loyal | EXPLOIT | R500.00 | perk None
+10:20  WARRANT  ID 23 | Admit | PR-1
+10:30  ORDER  1050 Mpho Zulu | Regular | RELEASE | R475.00 | perk None
+10:30  WARRANT  ID 24 | Admit | PR-1
+10:30  ORDER  1072 Mpho Nkosi | New | RELEASE | R500.00 | perk None
+10:30  WARRANT  ID 25 | Admit | PR-1
+10:40  ORDER  1018 Mpho Ndlovu | Regular | RELEASE | R475.00 | perk None
+10:40  WARRANT  ID 26 | Admit | PR-1
 10:40  ORDER  1065 Sipho Nkosi | New | RELEASE | R500.00 | perk None
-10:40  WARRANT  ID 121 | Admit | PR-1
-10:40  ORDER  1091 Zanele Dlamini | New | RELEASE | R500.00 | perk None
-10:40  WARRANT  ID 122 | Admit | PR-1
-10:50  ORDER  1170 Zanele Dlamini | New | RELEASE | R500.00 | perk None
-10:50  WARRANT  ID 123 | Admit | PR-1
-10:50  ORDER  1025 Thandi Zulu | New | RELEASE | R500.00 | perk None
-10:50  WARRANT  ID 124 | Admit | PR-1
-11:00  ORDER  1157 Sipho Nkosi | Loyal | RELEASE | R450.00 | perk Seat upgrade
-11:00  WARRANT  ID 125 | Admit | PR-1
-11:00  ORDER  1125 Ayanda Naidoo | New | RELEASE | R500.00 | perk None
-11:00  WARRANT  ID 126 | Admit | PR-1
-11:10  ORDER  1096 Pieter Ndlovu | New | RELEASE | R500.00 | perk None
-11:10  WARRANT  ID 127 | Admit | PR-1
-11:10  ORDER  1175 Zanele Botha | New | RELEASE | R500.00 | perk None
-11:10  WARRANT  ID 128 | Admit | PR-1
-11:10  ORDER  1136 Pieter Naidoo | Loyal | RELEASE | R450.00 | perk Seat upgrade
-11:10  WARRANT  ID 129 | Admit | PR-1
-11:10  ORDER  1107 Pieter Botha | New | RELEASE | R500.00 | perk None
-11:10  WARRANT  ID 130 | Admit | PR-1
-11:20  ORDER  1170 Zanele Dlamini | Regular | RELEASE | R475.00 | perk None
-11:20  WARRANT  ID 131 | Admit | PR-1
-11:30  ORDER  1059 Johan Khumalo | Loyal | RELEASE | R450.00 | perk Seat upgrade
-11:30  WARRANT  ID 132 | Admit | PR-1
-11:30  HOLD  1184 Pieter Khumalo | New | HOLD | R500.00 | perk None
-11:30  WARRANT  ID 133 | Admit | PR-1
-11:40  ORDER  1189 Mpho Zulu | Loyal | RELEASE | R450.00 | perk Seat upgrade
-11:40  WARRANT  ID 134 | Admit | PR-1
-11:40  ORDER  1103 Naledi Van Der Merwe | New | RELEASE | R500.00 | perk None
-11:40  WARRANT  ID 135 | Admit | PR-1
-11:40  ORDER  1072 Mpho Nkosi | New | RELEASE | R500.00 | perk None
-11:40  WARRANT  ID 136 | Admit | PR-1
-11:50  ORDER  1107 Pieter Botha | Regular | RELEASE | R475.00 | perk None
-11:50  WARRANT  ID 137 | Admit | PR-1
+10:40  WARRANT  ID 27 | Admit | PR-1
+10:40  ORDER  1072 Mpho Nkosi | Regular | RELEASE | R475.00 | perk None
+10:40  WARRANT  ID 28 | Admit | PR-1
+10:50  ORDER  1045 Johan Nkosi | Regular | RELEASE | R475.00 | perk None
+10:50  WARRANT  ID 29 | Admit | PR-1
+11:00  ORDER  1118 Zanele Zulu | New | RELEASE | R500.00 | perk None
+11:00  WARRANT  ID 30 | Admit | PR-1
+11:00  HOLD  1158 Thandi Naidoo | Loyal | HOLD | R500.00 | perk None
+11:00  WARRANT  ID 31 | Admit | PR-1
+11:00  ORDER  1131 Ayanda Zulu | Regular | RELEASE | R475.00 | perk None
+11:00  WARRANT  ID 32 | Admit | PR-1
+11:00  ORDER  1022 Naledi Dlamini | Regular | RELEASE | R475.00 | perk None
+11:00  WARRANT  ID 33 | Admit | PR-1
+11:10  HOLD  1184 Pieter Khumalo | New | HOLD | R500.00 | perk None
+11:10  WARRANT  ID 34 | Admit | PR-1
+11:10  ORDER  1038 Johan Botha | New | RELEASE | R500.00 | perk None
+11:10  WARRANT  ID 35 | Admit | PR-1
+11:10  ORDER  1067 Lerato Nkosi | Regular | RELEASE | R475.00 | perk None
+11:10  WARRANT  ID 36 | Admit | PR-1
+11:20  HOLD  1054 Johan Naidoo | Regular | EXPLOIT | R500.00 | perk None
+11:20  WARRANT  ID 37 | Admit | PR-1
+11:20  ORDER  1061 Naledi Khumalo | New | RELEASE | R500.00 | perk None
+11:20  WARRANT  ID 38 | Admit | PR-1
+11:30  ORDER  1161 Mpho Pillay | Loyal | RELEASE | R450.00 | perk Seat upgrade
+11:30  WARRANT  ID 39 | Admit | PR-1
+11:40  ORDER  1028 Kabelo Botha | New | RELEASE | R500.00 | perk None
+11:40  WARRANT  ID 40 | Admit | PR-1
+11:40  HOLD  1111 Naledi Ndlovu | Regular | HOLD | R500.00 | perk None
+11:40  WARRANT  ID 41 | Admit | PR-1
+11:50  ORDER  1152 Lerato Van Der Merwe | New | RELEASE | R500.00 | perk None
+11:50  WARRANT  ID 42 | Admit | PR-1
 12:00  DROP  Price drops to R470.00 | floor R351.41 | occ 42.22%
-12:00  COMP  Would owe 29 early buyers: R620.00
-12:00  HOLD  1128 Naledi Zulu | New | EXPLOIT | R470.00 | perk None
-12:00  WARRANT  ID 138 | Admit | PR-1
-12:10  ORDER  1199 Ayanda Botha | Regular | RELEASE | R446.50 | perk None
-12:10  WARRANT  ID 139 | Admit | PR-1
-12:10  ORDER  1072 Mpho Nkosi | Regular | RELEASE | R446.50 | perk None
-12:10  WARRANT  ID 140 | Admit | PR-1
-12:10  ORDER  1027 Thandi Pillay | Regular | RELEASE | R446.50 | perk None
-12:10  WARRANT  ID 141 | Admit | PR-1
-12:20  ORDER  1175 Zanele Botha | Regular | RELEASE | R446.50 | perk None
-12:20  WARRANT  ID 142 | Admit | PR-1
-12:20  ORDER  1077 Kabelo Van Der Merwe | New | RELEASE | R470.00 | perk None
-12:20  WARRANT  ID 143 | Admit | PR-1
-12:30  ORDER  1038 Johan Botha | New | RELEASE | R470.00 | perk None
-12:30  WARRANT  ID 144 | Admit | PR-1
-12:30  ORDER  1175 Zanele Botha | Regular | RELEASE | R446.50 | perk None
-12:30  WARRANT  ID 145 | Admit | PR-1
-12:30  ORDER  1152 Lerato Van Der Merwe | New | RELEASE | R470.00 | perk None
-12:30  WARRANT  ID 146 | Admit | PR-1
-12:30  ORDER  1149 Johan Van Der Merwe | Regular | RELEASE | R446.50 | perk None
-12:30  WARRANT  ID 147 | Admit | PR-1
-12:40  HOLD  1191 Zanele Van Der Merwe | Regular | EXPLOIT | R470.00 | perk None
-12:40  WARRANT  ID 148 | Admit | PR-1
-12:40  ORDER  1008 Sipho Khumalo | New | RELEASE | R470.00 | perk None
-12:40  WARRANT  ID 149 | Admit | PR-1
-12:40  HOLD  1002 Sipho Ndlovu | Regular | HOLD | R470.00 | perk None
-12:40  WARRANT  ID 150 | Admit | PR-1
+12:00  COMP  Would owe 37 early buyers: R685.00
+12:00  ORDER  1022 Naledi Dlamini | Regular | RELEASE | R446.50 | perk None
+12:00  WARRANT  ID 43 | Admit | PR-1
+12:10  ORDER  1182 Zanele Van Der Merwe | Regular | RELEASE | R446.50 | perk None
+12:10  WARRANT  ID 44 | Admit | PR-1
+12:20  ORDER  1012 Kabelo Nkosi | Regular | RELEASE | R446.50 | perk None
+12:20  WARRANT  ID 45 | Admit | PR-1
+12:20  ORDER  1182 Zanele Van Der Merwe | Regular | RELEASE | R446.50 | perk None
+12:20  WARRANT  ID 46 | Admit | PR-1
+12:20  ORDER  1093 Naledi Nkosi | Loyal | RELEASE | R423.00 | perk Seat upgrade
+12:20  WARRANT  ID 47 | Admit | PR-1
+12:20  ORDER  1112 Lerato Ndlovu | Loyal | RELEASE | R423.00 | perk Seat upgrade
+12:20  WARRANT  ID 48 | Admit | PR-1
+12:30  ORDER  1142 Thandi Mokoena | Loyal | RELEASE | R423.00 | perk Seat upgrade
+12:30  WARRANT  ID 49 | Admit | PR-1
+12:30  ORDER  1016 Zanele Khumalo | Regular | RELEASE | R446.50 | perk None
+12:30  WARRANT  ID 50 | Admit | PR-1
+12:30  ORDER  1127 Thandi Nkosi | New | RELEASE | R470.00 | perk None
+12:30  WARRANT  ID 51 | Admit | PR-1
+12:30  ORDER  1052 Johan Zulu | Regular | RELEASE | R446.50 | perk None
+12:30  WARRANT  ID 52 | Admit | PR-1
+12:40  ORDER  1179 Thandi Naidoo | Regular | RELEASE | R446.50 | perk None
+12:40  WARRANT  ID 53 | Admit | PR-1
+12:40  ORDER  1083 Naledi Ndlovu | Regular | RELEASE | R446.50 | perk None
+12:40  WARRANT  ID 54 | Admit | PR-1
 12:50  HOLD  1002 Sipho Ndlovu | Regular | HOLD | R470.00 | perk None
-12:50  WARRANT  ID 151 | Admit | PR-1
-12:50  ORDER  1168 Mpho Botha | New | RELEASE | R470.00 | perk None
-12:50  WARRANT  ID 152 | Admit | PR-1
-13:00  ORDER  1044 Zanele Ndlovu | Loyal | RELEASE | R423.00 | perk Seat upgrade
-13:00  WARRANT  ID 153 | Admit | PR-1
-13:00  ORDER  1124 Pieter Dlamini | New | RELEASE | R470.00 | perk None
-13:00  WARRANT  ID 154 | Admit | PR-1
-13:10  ORDER  1103 Naledi Van Der Merwe | New | RELEASE | R470.00 | perk None
-13:10  WARRANT  ID 155 | Admit | PR-1
-13:10  ORDER  1126 Kabelo Mokoena | Regular | RELEASE | R446.50 | perk None
-13:10  WARRANT  ID 156 | Admit | PR-1
-13:20  ORDER  1076 Sipho Van Der Merwe | New | RELEASE | R470.00 | perk None
-13:20  WARRANT  ID 157 | Admit | PR-1
-13:40  HOLD  1158 Thandi Naidoo | Loyal | HOLD | R470.00 | perk None
-13:40  WARRANT  ID 158 | Admit | PR-1
-13:40  ORDER  1196 Zanele Dlamini | New | RELEASE | R470.00 | perk None
-13:40  WARRANT  ID 159 | Admit | PR-1
-13:50  ORDER  1178 Thandi Van Der Merwe | New | RELEASE | R470.00 | perk None
-13:50  WARRANT  ID 160 | Admit | PR-1
-13:50  ORDER  1167 Thandi Mokoena | New | RELEASE | R470.00 | perk None
-13:50  WARRANT  ID 161 | Admit | PR-1
-14:00  DROP  Price drops to R420.00 | floor R322.75 | occ 68.89%
-14:00  COMP  Would owe 62 early buyers: R2,708.50
-14:00  ORDER  1055 Pieter Mokoena | New | RELEASE | R420.00 | perk None
-14:00  WARRANT  ID 162 | Admit | PR-1
-14:00  ORDER  1144 Mpho Botha | New | RELEASE | R420.00 | perk None
-14:00  WARRANT  ID 163 | Admit | PR-1
-14:20  ORDER  1026 Pieter Naidoo | New | RELEASE | R420.00 | perk None
-14:20  WARRANT  ID 164 | Admit | PR-1
-14:30  OVERRIDE  Manager released the hold on Cust 1158 (reason: long-standing customer), R47.00 returned
-14:50  ORDER  1012 Kabelo Nkosi | Loyal | RELEASE | R378.00 | perk Seat upgrade
-14:50  WARRANT  ID 165 | Admit | PR-1
-15:00  ORDER  1045 Johan Nkosi | Regular | RELEASE | R399.00 | perk None
-15:00  WARRANT  ID 166 | Admit | PR-1
-15:00  ORDER  1035 Zanele Zulu | New | RELEASE | R420.00 | perk None
-15:00  WARRANT  ID 167 | Admit | PR-1
-15:10  HOLD  1190 Pieter Naidoo | Loyal | EXPLOIT | R420.00 | perk None
-15:10  WARRANT  ID 168 | Admit | PR-1
+12:50  WARRANT  ID 55 | Admit | PR-1
+13:00  ORDER  1113 Sipho Khumalo | New | RELEASE | R470.00 | perk None
+13:00  WARRANT  ID 56 | Admit | PR-1
+13:00  ORDER  1025 Thandi Zulu | New | RELEASE | R470.00 | perk None
+13:00  WARRANT  ID 57 | Admit | PR-1
+13:30  ORDER  1116 Johan Ndlovu | New | RELEASE | R470.00 | perk None
+13:30  WARRANT  ID 58 | Admit | PR-1
+13:40  ORDER  1035 Zanele Zulu | New | RELEASE | R470.00 | perk None
+13:40  WARRANT  ID 59 | Admit | PR-1
+13:40  ORDER  1099 Thandi Naidoo | New | RELEASE | R470.00 | perk None
+13:40  WARRANT  ID 60 | Admit | PR-1
+14:00  DROP  Price drops to R420.00 | floor R315.42 | occ 62.22%
+14:00  COMP  Would owe 56 early buyers: R2,451.00
+14:20  HOLD  1191 Zanele Van Der Merwe | Regular | EXPLOIT | R420.00 | perk None
+14:20  WARRANT  ID 61 | Admit | PR-1
+14:30  ORDER  1015 Lerato Dlamini | Regular | RELEASE | R399.00 | perk None
+14:30  WARRANT  ID 62 | Admit | PR-1
+14:30  ORDER  1062 Pieter Dlamini | New | RELEASE | R420.00 | perk None
+14:30  WARRANT  ID 63 | Admit | PR-1
+14:30  OVERRIDE  Manager released the hold on Cust 1191 (reason: long-standing customer), R21.00 returned
+14:50  ORDER  1044 Zanele Ndlovu | Loyal | RELEASE | R378.00 | perk Seat upgrade
+14:50  WARRANT  ID 64 | Admit | PR-1
+15:00  ORDER  1195 Kabelo Pillay | New | RELEASE | R420.00 | perk None
+15:00  WARRANT  ID 65 | Admit | PR-1
+15:10  ORDER  1156 Naledi Dlamini | New | RELEASE | R420.00 | perk None
+15:10  WARRANT  ID 66 | Admit | PR-1
 15:20  ORDER  1003 Lerato Dlamini | New | RELEASE | R420.00 | perk None
-15:20  WARRANT  ID 169 | Admit | PR-1
-15:30  ORDER  1016 Zanele Khumalo | Regular | RELEASE | R399.00 | perk None
-15:30  WARRANT  ID 170 | Admit | PR-1
-15:40  ORDER  1127 Thandi Nkosi | New | RELEASE | R420.00 | perk None
-15:40  WARRANT  ID 171 | Admit | PR-1
-16:20  ORDER  1063 Thandi Van Der Merwe | Regular | RELEASE | R399.00 | perk None
-16:20  WARRANT  ID 172 | Admit | PR-1
-16:30  ORDER  1089 Zanele Naidoo | Loyal | RELEASE | R378.00 | perk Seat upgrade
-16:30  WARRANT  ID 173 | Admit | PR-1
-16:30  ORDER  1014 Naledi Khumalo | New | RELEASE | R420.00 | perk None
-16:30  WARRANT  ID 174 | Admit | PR-1
-17:00  HOLD  1054 Johan Naidoo | Regular | EXPLOIT | R420.00 | perk None
-17:00  WARRANT  ID 175 | Admit | PR-1
-17:10  ORDER  1133 Sipho Mokoena | New | RELEASE | R420.00 | perk None
-17:10  WARRANT  ID 176 | Admit | PR-1
-17:10  ORDER  1087 Lerato Nkosi | Loyal | RELEASE | R378.00 | perk Seat upgrade
-17:10  WARRANT  ID 177 | Admit | PR-1
-17:30  ORDER  1029 Johan Ndlovu | Regular | RELEASE | R399.00 | perk Voucher
-17:30  WARRANT  ID 178 | Admit | PR-1
-17:30  ORDER  1012 Kabelo Nkosi | Loyal | RELEASE | R378.00 | perk Seat upgrade
-17:30  WARRANT  ID 179 | Admit | PR-1
-17:40  ORDER  1118 Zanele Zulu | New | RELEASE | R420.00 | perk Voucher
-17:40  WARRANT  ID 180 | Admit | PR-1
-17:40  ORDER  1177 Sipho Van Der Merwe | Regular | RELEASE | R399.00 | perk Voucher
-17:40  WARRANT  ID 181 | Admit | PR-1
+15:20  WARRANT  ID 67 | Admit | PR-1
+15:50  ORDER  1186 Johan Mokoena | Loyal | RELEASE | R378.00 | perk Seat upgrade
+15:50  WARRANT  ID 68 | Admit | PR-1
+16:00  ORDER  1011 Sipho Mokoena | Loyal | RELEASE | R378.00 | perk Seat upgrade
+16:00  WARRANT  ID 69 | Admit | PR-1
+16:00  ORDER  1131 Ayanda Zulu | Regular | RELEASE | R399.00 | perk None
+16:00  WARRANT  ID 70 | Admit | PR-1
+16:10  ORDER  1126 Kabelo Mokoena | Regular | RELEASE | R399.00 | perk None
+16:10  WARRANT  ID 71 | Admit | PR-1
+16:20  ORDER  1090 Pieter Nkosi | Regular | RELEASE | R399.00 | perk None
+16:20  WARRANT  ID 72 | Admit | PR-1
+16:20  HOLD  1172 Mpho Van Der Merwe | Regular | HOLD | R420.00 | perk None
+16:20  WARRANT  ID 73 | Admit | PR-1
+16:30  HOLD  1054 Johan Naidoo | Regular | EXPLOIT | R420.00 | perk None
+16:30  WARRANT  ID 74 | Admit | PR-1
+16:30  ORDER  1187 Ayanda Naidoo | New | RELEASE | R420.00 | perk None
+16:30  WARRANT  ID 75 | Admit | PR-1
+16:40  ORDER  1133 Sipho Mokoena | New | RELEASE | R420.00 | perk None
+16:40  WARRANT  ID 76 | Admit | PR-1
+16:40  ORDER  1073 Thandi Ndlovu | Regular | RELEASE | R399.00 | perk None
+16:40  WARRANT  ID 77 | Admit | PR-1
+17:00  ORDER  1053 Mpho Khumalo | New | RELEASE | R420.00 | perk None
+17:00  WARRANT  ID 78 | Admit | PR-1
+17:10  ORDER  1078 Kabelo Pillay | New | RELEASE | R420.00 | perk None
+17:10  WARRANT  ID 79 | Admit | PR-1
+17:40  ORDER  1171 Zanele Botha | Loyal | RELEASE | R378.00 | perk Seat upgrade
+17:40  WARRANT  ID 80 | Admit | PR-1
+17:50  ORDER  1198 Pieter Naidoo | New | RELEASE | R420.00 | perk None
+17:50  WARRANT  ID 81 | Admit | PR-1
+17:50  ORDER  1119 Kabelo Naidoo | New | RELEASE | R420.00 | perk None
+17:50  WARRANT  ID 82 | Admit | PR-1
 
 END OF DAY - Bus
-Units sold: 82 of 90 seats
-Revenue: R37,495.50
-Discounts given: R1,184.50
-Discounts withheld: R208.50
-Compensation reported: R3,328.50
-Fairness holds: 11
+Units sold: 78 of 90 seats
+Revenue: R35,623.00
+Discounts given: R1,077.00
+Discounts withheld: R215.50
+Compensation reported: R3,136.00
+Fairness holds: 13
 Manager overrides: 1

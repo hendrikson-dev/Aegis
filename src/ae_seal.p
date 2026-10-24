@@ -7,6 +7,11 @@ DEFINE OUTPUT PARAMETER oWarrantID  AS INTEGER   NO-UNDO.
 
 DEFINE VARIABLE iWarrantID AS INTEGER NO-UNDO.
 
+IF LOOKUP(cRuling, 'Admit,Deny,Override') = 0 THEN
+    RETURN ERROR 'Invalid ruling: ' + cRuling.
+IF LOOKUP(cRegime, 'Normal,Surge') = 0 THEN
+    RETURN ERROR 'Invalid regime: ' + cRegime.
+
 DO TRANSACTION ON ERROR UNDO, LEAVE:
     
     CREATE ae_Warrant.

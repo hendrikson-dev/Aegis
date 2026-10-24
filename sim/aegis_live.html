@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aegis Live Simulator</title>
+<style>
+:root{--bg:#0b1220;--pn:#121b2e;--tx:#e6edf7;--mu:#8a9ab5;--ln:#223050;--ac:#4f8cff;--ok:#2fbf71;--no:#ef5350;--wa:#f2a93b}
+@media(prefers-color-scheme:light){:root{--bg:#f4f6fb;--pn:#fff;--tx:#14213d;--mu:#5b6b88;--ln:#d5dbe8;--ac:#2a5fd6;--ok:#17874d;--no:#c62f2c;--wa:#b36b00}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,"Segoe UI",sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid var(--ln);flex-wrap:wrap}
+h1{font-size:18px;letter-spacing:.18em;margin:0}nav{display:flex;gap:4px}nav button,.b{background:none;border:1px solid var(--ln);color:var(--tx);padding:6px 14px;border-radius:8px;cursor:pointer;font:inherit}
+nav button.on,.rg.on,.b.on{background:var(--ac);border-color:var(--ac);color:#fff}.sp{flex:1}
+.flow{display:flex;gap:8px;flex-wrap:wrap}.st{flex:1;min-width:150px;border:1px solid var(--ln);border-radius:10px;padding:10px 12px}.st small{display:block;color:var(--mu)}.st.hi{border-color:var(--ac)}.flow span{align-self:center;color:var(--mu);font-size:22px}
+.sl{min-height:calc(100vh - 230px);display:flex;flex-direction:column;justify-content:center;max-width:900px;margin:0 auto}.sl h2{font-size:34px;margin:0 0 10px}.sl p{font-size:20px}.dots{text-align:center;color:var(--mu)}
+body.pm{font-size:18px}body.pm .chips,body.pm #mode{display:none}body.pm main{padding:24px 40px}
+[hidden]{display:none!important}.g2>.pane{min-height:46vh}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.tile{text-align:left;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:14px;color:var(--tx);cursor:pointer;font:inherit}.tile:hover{border-color:var(--ac)}.tile b{display:block;font-size:16px}.tile small{display:block;color:var(--mu);margin:2px 0 6px}.tile i{font-style:normal;font-size:12px;color:var(--wa)}
+#pop{position:absolute;top:54px;left:12px;z-index:9;background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:10px;width:min(620px,92vw)}
+dialog{color:var(--tx);background:var(--pn);border:1px solid var(--ln);border-radius:12px;width:320px}dialog::backdrop{background:rgba(0,0,0,.6)}dialog input{width:100%;padding:8px;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:8px}
+.chips{font-size:12px;color:var(--mu);padding:6px 20px;border-bottom:1px solid var(--ln)}.chips b{color:var(--tx)}
+main{padding:16px 20px}.tab[hidden]{display:none}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.k,.card,.pane{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:12px 14px}
+.k small{color:var(--mu);display:block;font-size:12px}.k b{font-size:22px}
+.g2{display:grid;grid-template-columns:3fr 2fr;gap:14px}@media(max-width:800px){.g2{grid-template-columns:1fr}}
+.row{display:flex;gap:10px;padding:6px 4px;border-bottom:1px solid var(--ln);font:13px Consolas,monospace}.row.w{cursor:pointer}.row.w:hover{background:var(--bg)}
+.row i{color:var(--mu);font-style:normal;width:44px}.tag{width:70px;font-weight:700}.Admit{color:var(--ok)}.Deny{color:var(--no)}.ORDER{color:var(--mu)}
+.badge{font-size:11px;border:1px solid var(--wa);color:var(--wa);padding:2px 8px;border-radius:99px}.badge.l{border-color:var(--ok);color:var(--ok)}
+pre{margin:0;font:14px/1.7 Consolas,monospace;overflow-x:auto}pre span{display:block;padding:0 8px;border-left:3px solid transparent;white-space:pre}
+pre span.on{background:rgba(79,140,255,.18);border-left-color:var(--ac)}
+table{border-collapse:collapse;width:100%}td{padding:4px 6px;border-bottom:1px solid var(--ln)}td:last-child{text-align:right;font-weight:700}
+.res{font-size:26px;font-weight:800;margin:8px 0}.say{font-size:17px;min-height:56px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}.card h3{margin:0 0 4px;font-size:16px}.card.d{opacity:.5}.card small{color:var(--mu)}
+iframe{width:100%;height:calc(100vh - 190px);border:1px solid var(--ln);border-radius:10px;background:#fff}
+
+a.b{text-decoration:none;display:inline-block}
+</style></head><body>
+<header><a class="b" href="aegis_hub.html" title="All apps">⠿</a><h1>LIVE SIMULATOR</h1>
+<nav><button data-t="live">Live</button><button data-t="code">Code</button><button data-t="scenes">Scenes</button></nav>
+<span class="sp"></span><a class="b" href="aegis_hub.html#go=present">Present</a><span id="mode" class="badge">DEMO DATA</span>
+<span style="color:var(--mu);font-size:13px">Regime</span><button class="b rg on" data-r="Normal">Normal</button><button class="b rg" data-r="Surge">Surge</button></header>
+<div class="chips"><b>Provision engine:</b> built and tested &nbsp;·&nbsp; <b>Strategy engine:</b> scripted proposer &nbsp;·&nbsp; <b>Demand, HR:</b> described, not built</div>
+<main>
+<section class="tab" id="t-live"><div class="kpis" id="kp"></div>
+<div class="g2"><div class="pane"><b>Decisions as they happen</b> <small style="color:var(--mu)">(click a Warrant)</small><div id="ev"></div></div>
+<div class="pane" id="rc"><b>Warrant detail</b><p style="color:var(--mu)">Click a Warrant line to pull up its detail.</p></div></div><div class="pane" id="tl" style="margin-top:14px"></div></section>
+<section class="tab" id="t-code" hidden><div class="g2"><div class="pane"><small style="color:var(--mu)">ae_steward.p (abridged)</small><pre id="cd"></pre></div>
+<div class="pane"><div id="cs"></div><p class="say" id="sy"></p><table id="vr"></table><div class="res" id="rs"></div>
+<button class="b" id="bp">Back</button> <button class="b" id="bn">Step</button> <button class="b" id="bg">Play</button> <button class="b" id="br">Reset</button></div></div><div class="pane" style="margin-top:14px"><div id="ob"></div><div id="oc" style="margin-top:10px"></div></div></section>
+<section class="tab" id="t-scenes" hidden><div class="cards" id="sn"></div>
+<div class="card" style="margin-top:12px"><b>Say only what is built.</b> Provision is built and tested. Strategy is a scripted proposer. Demand and HR are described, not built. The AI writes words; it never decides.</div><div class="pane" id="rn" style="margin-top:12px"></div></section>
+</main><div class="chips">Keys: 1 to 3 tabs · arrows step · Space plays · F fullscreen · P present · H all apps</div>
+<script src="aegis_config.js"></script>
+<script>
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],R=n=>'R'+Number(n).toFixed(2);
+let regime='Normal',sc=0,st=0,tm=null,live=false,k=0;
+function H(){const o={};location.hash.slice(1).split('&').forEach(p=>{const i=p.indexOf('=');if(i>0)o[p.slice(0,i)]=p.slice(i+1)});return o}
+function locked(id){if(window.AEGIS_OPEN)return false;const o=H(),t=+o.ok;if(t>0&&Date.now()-t<288e5&&t<Date.now()+6e4)return false;return o.l?o.l.split('.').includes(id):(id=='scenes'||id=='present')}
+let cur='live';function show(t){cur=t;$$('.tab').forEach(e=>e.hidden=e.id!=='t-'+t);$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t))}
+function nav(t){if(t=='scenes'&&locked('scenes')){location.href='aegis_hub.html#go=scenes';return}show(t)}
+$$('nav button').forEach(b=>b.onclick=()=>nav(b.dataset.t));
+function setR(r){regime=r;$$('.rg').forEach(b=>b.classList.toggle('on',b.dataset.r===r));reset()}
+$$('.rg').forEach(b=>b.onclick=()=>setR(b.dataset.r));
+/* live feed */
+const DEMO=[["08:00","ORDER","1094 Pieter Zulu | Regular | RELEASE | R475.00 | perk None"],["08:00","WARRANT","ID 100 | Admit | PR-1"],["08:30","ORDER","1189 Mpho Zulu | Loyal | RELEASE | R450.00 | perk Seat upgrade"],["08:30","WARRANT","ID 101 | Admit | PR-1"],["09:10","ORDER","1061 Naledi Khumalo | New | RELEASE | R500.00 | perk None"],["09:10","WARRANT","ID 102 | Deny | PR-1"],["09:40","ORDER","1118 Zanele Zulu | New | RELEASE | R420.00 | perk Voucher"],["09:40","WARRANT","ID 103 | Admit | PR-1"]];
+function demoTick(){k=Math.min(k+1,DEMO.length);const e=DEMO.slice(0,k),n=e.filter(x=>x[1]=='ORDER').length;draw(["09:40",500,n*10,90,n*4200,0,0,1,0,n?420:0,e.map(x=>x.join('^')).join('#')],true)}
+function draw(d,demo){$('#mode').textContent=demo?'DEMO DATA':'LIVE · OpenEdge feed';$('#mode').className='badge'+(demo?'':' l');
+const ev=String(d[10]||'').split('#').filter(Boolean).map(x=>x.split('^'));
+$('#kp').innerHTML=[['Time',d[0]],['Sold',d[2]+' / '+(d[3]||'')],['Revenue',R(d[4])],['Average price',R(d[9])],['Holds',d[7]],['Overrides',d[8]]].map(x=>`<div class="k"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
+$('#ev').innerHTML=ev.map((x,i)=>{const p=x[2].split('|').map(s=>s.trim());const w=x[1]=='WARRANT';return `<div class="row ${w?'w':''}" ${w?`data-i="${i}"`:''}><i>${x[0]}</i><span class="tag ${w?p[1]:'ORDER'}">${x[1]=='ORDER'?'Order':p[1]}</span><span>${x[2]}</span></div>`}).reverse().join('');
+$$('.row.w').forEach(r=>r.onclick=()=>receipt(ev,+r.dataset.i));tally(ev)}
+function receipt(ev,i){const w=ev[i][2].split('|').map(s=>s.trim());let o=[];for(let j=i-1;j>=0;j--)if(ev[j][1]=='ORDER'){o=ev[j][2].split('|').map(s=>s.trim());break}
+const id=w[0].replace('ID ',''),adm=w[1]=='Admit';
+$('#rc').innerHTML=`<b>Warrant detail</b><table style="margin:8px 0"><tr><td>Customer</td><td>${o[0]||'-'}</td></tr><tr><td>Price</td><td>${o[3]||'-'}</td></tr><tr><td>Rule applied</td><td>${w[2]}</td></tr><tr><td>Decision</td><td class="${w[1]}">${w[1]}</td></tr><tr><td>Warrant ID</td><td>${id}</td></tr></table><p>${adm?`Checked against rule ${w[2]}: within the limit.`:`Refused under rule ${w[2]}: the proposal was over the limit.`} Recorded in Warrant ${id}, which cannot be edited.</p><small style="color:var(--mu)">Preview built from the feed.</small>`}
+function poll(){const o=$('#fs');o&&o.remove();const s=document.createElement('script');s.id='fs';s.src='feed.js?_='+Date.now();
+s.onload=()=>{if(window.FAIRPLAY){live=true;draw(window.FAIRPLAY,false)}};s.onerror=()=>{live=false;demoTick()};document.body.appendChild(s)}
+/* code walkthrough */
+const L=["FIND ae_Proposal WHERE ae_Proposal.ProposalID = iProposalID.","/* PR-3: never below the floor */","IF ae_Proposal.ProposedValue < ae_Proposal.FloorValue THEN DO:","    cRuling = 'Deny'. cClause = 'PR-3'. RETURN.","IF cRegime = 'Surge' THEN cPriceRule = 'PR-2'.","ELSE cPriceRule = 'PR-1'.","FIND FIRST ae_Charter WHERE ae_Charter.ClauseID = cPriceRule.","dMaxRise = ae_Proposal.BaseValue * (1 + ae_Charter.LimitValue).","IF ae_Proposal.ProposedValue > dMaxRise THEN DO:","    cRuling = 'Deny'. cClause = ae_Charter.ClauseID. RETURN.","ELSE cRuling = 'Admit'."];
+const C=[{n:'Fair rise',b:500,p:540,f:350},{n:'Too high',b:500,p:700,f:350},{n:'Below floor',b:500,p:280,f:350}];
+function plan(c){const s=[],cap=regime=='Surge'?.4:.1,ru=regime=='Surge'?'PR-2':'PR-1',mx=Math.round(c.b*(1+cap)*100)/100;
+s.push([0,`Load the proposal: base ${R(c.b)}, proposed ${R(c.p)}, floor ${R(c.f)}. The engine only suggested this price.`]);
+s.push([2,`Rule PR-3 comes first: is ${R(c.p)} below the floor ${R(c.f)}?`]);
+if(c.p<c.f){s.push([3,'Yes. Denied under PR-3. Nothing else is checked.']);return{s,r:'Deny',cl:'PR-3',cap,ru,mx}}
+s.push([4,`No. The regime is ${regime}, so the rule is ${ru}.`]);s.push([6,`Read ${ru} from the Charter: the cap is ${cap*100}%.`]);
+s.push([7,`Highest allowed price: ${R(c.b)} × ${(1+cap).toFixed(2)} = ${R(mx)}.`]);s.push([8,`Is ${R(c.p)} above ${R(mx)}?`]);
+if(c.p>mx){s.push([9,`Yes. Denied under ${ru}, and recorded in a Warrant.`]);return{s,r:'Deny',cl:ru,cap,ru,mx}}
+s.push([10,`No. Admitted under ${ru}, and sealed in a Warrant.`]);return{s,r:'Admit',cl:ru,cap,ru,mx}}
+function drawCode(){const c=C[sc],p=plan(c),cur=p.s[st],ln=cur?cur[0]:-1,fin=st>=p.s.length-1;
+$('#cd').innerHTML=L.map((t,i)=>`<span class="${i==ln||(ln==4&&i==5)?'on':''}">${t.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span>`).join('');
+$('#cs').innerHTML=C.map((x,i)=>`<button class="b ${i==sc?'on':''}" data-c="${i}">${x.n}</button>`).join(' ')+` <small style="color:var(--mu)">Regime: ${regime}</small>`;
+$$('#cs button').forEach(b=>b.onclick=()=>{sc=+b.dataset.c;reset()});
+$('#sy').textContent=cur?cur[1]:'';
+$('#vr').innerHTML=[['Base',R(c.b)],['Proposed',R(c.p)],['Floor',R(c.f)],['Regime',regime],['Rule',st>=2&&ln!=3?p.ru:'-'],['Highest allowed',st>=4?R(p.mx):'-']].map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td></tr>`).join('');
+$('#rs').innerHTML=fin?`<span class="${p.r}">${p.r.toUpperCase()}</span> <small style="color:var(--mu)">clause ${p.cl}</small>`:'';drawOpt(p,fin)}
+function go(d){const n=plan(C[sc]).s.length;st=Math.max(0,Math.min(n-1,st+d));drawCode()}
+function reset(){clearInterval(tm);tm=null;st=0;$('#bg').textContent='Play';drawCode()}
+$('#bn').onclick=()=>go(1);$('#bp').onclick=()=>go(-1);$('#br').onclick=reset;
+$('#bg').onclick=()=>{if(tm){clearInterval(tm);tm=null;$('#bg').textContent='Play';return}$('#bg').textContent='Pause';tm=setInterval(()=>{if(st>=plan(C[sc]).s.length-1){clearInterval(tm);tm=null;$('#bg').textContent='Play'}else go(1)},1800)};
+let ot='w';
+const CH=[['PR-1','Strategy','Normal','Maximum price rise per change','10%'],['PR-2','Strategy','Surge','Maximum price rise per change','40%'],['PR-3','Strategy','All','Price may not go below the floor','floor'],['LI-1','Provision','All','Every price drop gets a recorded decision',''],['LI-2','Provision','All','Liability may not exceed the price difference',''],['TR-1','All','All','Every Warrant names the clause applied','']];
+function drawOpt(p,fin){$('#ob').innerHTML=[['w','Warrant sealed'],['c','Charter'],['f','Pipeline']].map(x=>`<button class="b ${ot==x[0]?'on':''}" data-o="${x[0]}">${x[1]}</button>`).join(' ');
+$$('#ob button').forEach(b=>b.onclick=()=>{ot=b.dataset.o;drawCode()});let h='';
+if(ot=='w')h=fin?'<table>'+[['Regime',regime],['Clause',p.cl],['Ruling',p.r],['Reason',p.r=='Admit'?'Within Charter limits':p.cl=='PR-3'?'Below the floor':'Over the cap for '+regime],['Authorizer','Steward'],['Charter version','1'],['Edit or delete','never']].map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td></tr>`).join('')+'</table>':'<small style="color:var(--mu)">Step to the end to see what gets sealed.</small>';
+else if(ot=='c')h='<table>'+CH.map(x=>`<tr><td>${x[0]}</td><td>${x[3]} <small style="color:var(--mu)">(${x[1]}, ${x[2]})</small></td><td>${x[4]}</td></tr>`).join('')+'</table><small style="color:var(--mu)">People change the Charter. The system never does.</small>';
+else h='<div class="flow">'+[['Engine','proposes a price'],['Steward','judges it against the Charter'],['Seal','records a Warrant, all or nothing'],['Advocate','explains it in words, numbers checked']].map((x,i)=>`<div class="st ${i==1?'hi':''}"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('<span>›</span>')+'</div>';
+$('#oc').innerHTML=h}
+function tally(ev){const w=ev.filter(x=>x[1]=='WARRANT').map(x=>x[2].split('|').map(s=>s.trim())),a=w.filter(x=>x[1]=='Admit').length,cl={};w.forEach(x=>cl[x[2]]=(cl[x[2]]||0)+1);
+$('#tl').innerHTML=`<b>Ruling summary</b> <small style="color:var(--mu)">(recent decisions)</small><div class="kpis" style="margin:10px 0 0"><div class="k"><small>Admitted</small><b class="Admit">${a}</b></div><div class="k"><small>Denied</small><b class="Deny">${w.length-a}</b></div><div class="k"><small>Clauses used</small><b>${Object.entries(cl).map(x=>x[0]+' ×'+x[1]).join('  ')||'-'}</b></div><div class="k"><small>Price cap now</small><b>${regime=='Surge'?'40%':'10%'}</b></div></div>`}
+function runSheet(){const n=$$('.card.d').length;$('#rn').innerHTML=`<b>Run sheet</b> <small style="color:var(--mu)">${n} of 6 done</small><p style="margin:8px 0 0">Open with the slides. Scenes 1 to 3 run live here. Scenes 4 to 6 are recorded clips from the tests. Close on "say only what is built".</p>`}
+/* scenes */
+const S=[['Admit and seal','A normal proposal becomes a Warrant, and the customer opens the receipt.','live'],['Deny','A 40% rise in Normal is refused and recorded, with the clause named.',['code',1,'Normal']],['Adapt','The Owner declares Surge and the same proposal is admitted.',['code',1,'Surge']],['Invented number','A wrong figure from the AI is rejected and the template is used.','Cue: test_numbers.p, T7'],['Failed write','A forced error leaves nothing saved.','Cue: test_seal.p, T5'],['Replay','The same inputs give the same ruling.','Cue: test_replay.p, T10']];
+$('#sn').innerHTML=S.map((x,i)=>`<div class="card" id="sc${i}"><h3>${i+1}. ${x[0]}</h3><p>${x[1]}</p>${typeof x[2]=='string'&&x[2]!='live'?`<small>${x[2]}</small>`:`<button class="b" data-s="${i}">Open</button>`} <button class="b" data-d="${i}">Done</button></div>`).join('');
+$$('[data-s]').forEach(b=>b.onclick=()=>{const x=S[+b.dataset.s][2];if(x=='live')show('live');else{sc=x[1];setR(x[2]);show('code')}});
+$$('[data-d]').forEach(b=>b.onclick=()=>{$('#sc'+b.dataset.d).classList.toggle('d');runSheet()});
+document.addEventListener('keydown',e=>{const t={1:'live',2:'code',3:'scenes'}[e.key],k=e.key.toLowerCase();if(t)nav(t);else if(e.key=='ArrowRight')go(1);else if(e.key=='ArrowLeft')go(-1);else if(e.key==' '){e.preventDefault();$('#bg').click()}else if(k=='f')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();else if(k=='p')location.href='aegis_hub.html#go=present';else if(k=='h')location.href='aegis_hub.html'});
+nav(H().t=='scenes'?'scenes':'live');drawCode();runSheet();poll();setInterval(poll,2000);
+</script></body></html>

@@ -14,7 +14,11 @@ set "NEWDB="
 if not exist "%BASEDIR%\db\%DBNAME%.db" (
     echo No database found. Creating an empty one...
     set "NEWDB=1"
-    "%DLC%\bin\_dbutil.exe" procopy "%DLC%\empty" "%BASEDIR%\db\%DBNAME%"
+    pushd "%BASEDIR%\db"
+    > %DBNAME%.st echo b .
+    >> %DBNAME%.st echo d "Schema Area":6,64 .
+    "%DLC%\bin\_dbutil.exe" procopy "%DLC%\empty" %DBNAME% -relative
+    popd
 )
 
 if not exist "%BASEDIR%\db\%DBNAME%.db" (

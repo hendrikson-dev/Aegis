@@ -1,1 +1,1 @@
-@call "%~dp0fairplay.bat" tests
+@call "%~dp0aegis.bat" demo
