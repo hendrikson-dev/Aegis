@@ -2,7 +2,7 @@
 
 You need Progress OpenEdge (Developers Kit: Classroom Edition) installed. This was built and tested on OpenEdge 12.8, Windows.
 
-You also need a Groq API key set in your Windows Environment Variables as `agies_ai_key` for the real AI features to work. If the key is missing, the system will safely fall back to templates.
+Set your Groq API key in your Windows Environment Variables as aegis_ai_key. If the key is missing, the system will safely fall back to templates.
 
 ## First run (or after deleting the db folder)
 
@@ -30,6 +30,13 @@ The setting lasts only for that editor session, so repeat step 2 each time you r
 
 ## Usage guide
 
-- **Demo (shadow run):** double-click `demo.bat`. The display page opens, and the simulator feeds it simulated orders. Aegis reports what the Steward admits or denies, seals the Warrant, and generates the customer receipt.
-- **Tests:** double-click `tests.bat` (runs both the 7 original FairPlay tests and the 5 Aegis Steward tests).
-- **Start over:** delete the `db` folder and repeat steps 2 to 4.
+- **Demo:** double-click `demo.bat`. The Live Simulator opens and the simulation feeds it. Close any editor window first.
+- **Tests:** `tests.bat` runs the original engine tests. `count.bat` runs the tests that count and shows one scoreboard.
+- **Presenting:** double-click `present.bat` to open the app launcher. Presentation is behind the passkey.
+- **Editor:** open it only with `workbench.bat`, then run `RUN src\setup_path.p.` once per session.
+- **Submission copy:** set `window.AEGIS_OPEN=true` in `sim\aegis_config.js`, then run `tests.bat` and `count.bat` from that clean copy.
+- **To Start over:** delete the `db` folder and repeat steps 2 to 4.
+
+**Naming Conventions:**
+- `fp_` prefixes are legacy tables and engines (FairPlay/Provision).
+- `ae_` prefixes are the new Aegis platform tables and governance engines.

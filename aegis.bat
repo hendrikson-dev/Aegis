@@ -14,6 +14,8 @@ if not exist "%DLC%\bin\prowin.exe" goto :noopenedge
 if not exist "%BASEDIR%\db\%DBNAME%.db" goto :nodb
 if exist "%BASEDIR%\db\%DBNAME%.lk" goto :busy
 
+if /i "%ACTION%"=="demo" if exist "%BASEDIR%\sim\feed.js" del "%BASEDIR%\sim\feed.js"
+
 if /i "%ACTION%"=="demo" start "" "%BASEDIR%\sim\aegis_live.html"
 
 set "FAIRPLAY_DIR=%BASEDIR%"

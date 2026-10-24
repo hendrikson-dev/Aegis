@@ -1,5 +1,6 @@
 /* fp_price.p */
 DEFINE INPUT  PARAMETER iCustNum       AS INTEGER    NO-UNDO.
+DEFINE INPUT  PARAMETER iAssetID       AS INTEGER    NO-UNDO.
 DEFINE INPUT  PARAMETER dBasePrice     AS DECIMAL    NO-UNDO.
 DEFINE INPUT  PARAMETER dMarginalCost  AS DECIMAL    NO-UNDO.
 DEFINE INPUT  PARAMETER dOccupancy     AS DECIMAL    NO-UNDO.
@@ -23,12 +24,17 @@ dFinalPrice = dBasePrice.
 
 RUN fp_classify.p (INPUT iCustNum, OUTPUT cSegment, OUTPUT dScore).
 
+FIND ae_Asset WHERE ae_Asset.AssetID = iAssetID NO-LOCK NO-ERROR.
+IF AVAILABLE ae_Asset THEN 
+    dBasePrice = ae_Asset.BasePrice.
+
 FIND fp_Segment WHERE fp_Segment.SegName = cSegment NO-LOCK NO-ERROR.
 IF NOT AVAILABLE fp_Segment THEN DO:
     cReason = '[SEGMENT] ' + cSegment + ' | NO segment rules found, base price used'.
     
     CREATE ae_Proposal.
     ASSIGN ae_Proposal.ProposalID    = NEXT-VALUE(ae_ProposalSeq)
+           ae_Proposal.AssetID       = iAssetID
            ae_Proposal.Engine        = 'Strategy'
            ae_Proposal.Subject       = STRING(iCustNum)
            ae_Proposal.Kind          = 'Price'

@@ -1,0 +1,1 @@
+@start "" "%~dp0sim\aegis_hub.html"

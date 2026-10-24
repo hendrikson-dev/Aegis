@@ -6,6 +6,8 @@ DEFINE INPUT  PARAMETER bLastSeat     AS LOGICAL   NO-UNDO.
 DEFINE INPUT  PARAMETER dOccupancy    AS DECIMAL   NO-UNDO.
 DEFINE INPUT  PARAMETER dHoursLeft    AS DECIMAL   NO-UNDO.
 DEFINE INPUT  PARAMETER dWindow       AS DECIMAL   NO-UNDO.
+DEFINE INPUT  PARAMETER iAsset        AS INTEGER   NO-UNDO. /* Moved this up with the other inputs */
+
 DEFINE OUTPUT PARAMETER cSegment      AS CHARACTER NO-UNDO.
 DEFINE OUTPUT PARAMETER dScore        AS DECIMAL   NO-UNDO.
 DEFINE OUTPUT PARAMETER cFairness     AS CHARACTER NO-UNDO.
@@ -21,7 +23,8 @@ DEFINE VARIABLE iPropID        AS INTEGER NO-UNDO.
 
 RUN fp_classify.p (INPUT iCustNum, OUTPUT cSegment, OUTPUT dScore).
 RUN fp_fairness.p (INPUT iCustNum, OUTPUT cFairness).
-RUN fp_price.p    (INPUT iCustNum, INPUT dListPrice, INPUT dMarginalCost,
+
+RUN fp_price.p    (INPUT iCustNum, INPUT iAsset, INPUT dListPrice, INPUT dMarginalCost,
                    INPUT dOccupancy, INPUT dHoursLeft, INPUT dWindow,
                    OUTPUT iPropID, OUTPUT cReason).
 

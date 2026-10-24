@@ -20,7 +20,7 @@ DEFINE VARIABLE oLib      AS IHttpClientLibrary NO-UNDO.
 DEFINE VARIABLE iMsg      AS INTEGER       NO-UNDO.
 
 cText = ''.
-cApiKey = OS-GETENV('agies_ai_key').
+cApiKey = OS-GETENV('aegis_ai_key').
 IF cApiKey = ? OR cApiKey = '' THEN RETURN.
 
 oJson = NEW JsonObject().

@@ -9,6 +9,11 @@ DEFINE TEMP-TABLE ttOrder NO-UNDO
     FIELD Blocked    AS DECIMAL
     INDEX ixBook IS PRIMARY UNIQUE BookingNum.
 
+DEFINE TEMP-TABLE ttAssetSold NO-UNDO
+    FIELD AssetID AS INTEGER
+    FIELD Sold    AS INTEGER
+    INDEX ixAsset IS PRIMARY UNIQUE AssetID.
+
 DEFINE BUFFER bSweep FOR ttOrder.
 DEFINE BUFFER bOvr   FOR ttOrder.
 DEFINE STREAM sLog.
@@ -16,7 +21,6 @@ DEFINE STREAM sFeed.
 DEFINE VARIABLE cEvents AS CHARACTER NO-UNDO.
 DEFINE VARIABLE iDone   AS INTEGER   NO-UNDO.
 
-DEFINE VARIABLE iCapacity    AS INTEGER   NO-UNDO.
 DEFINE VARIABLE dCost        AS DECIMAL   NO-UNDO.
 DEFINE VARIABLE iPause       AS INTEGER   NO-UNDO INITIAL 1.
 DEFINE VARIABLE iOverrideAt  AS INTEGER   NO-UNDO INITIAL 40.
@@ -62,13 +66,22 @@ DEFINE VARIABLE dComp       AS DECIMAL NO-UNDO.
 DEFINE VARIABLE dBlocked    AS DECIMAL NO-UNDO.
 DEFINE VARIABLE bLast       AS LOGICAL NO-UNDO.
 
-DEFINE VARIABLE cBaseDir AS CHARACTER NO-UNDO.
-DEFINE VARIABLE cSimDir  AS CHARACTER NO-UNDO.
+DEFINE VARIABLE cBaseDir    AS CHARACTER NO-UNDO.
+DEFINE VARIABLE cSimDir     AS CHARACTER NO-UNDO.
 
 DEFINE VARIABLE cRul  AS CHARACTER NO-UNDO.
 DEFINE VARIABLE cRsn  AS CHARACTER NO-UNDO.
 DEFINE VARIABLE cCls  AS CHARACTER NO-UNDO.
 DEFINE VARIABLE oWarr AS INTEGER   NO-UNDO.
+
+DEFINE VARIABLE iAsset     AS INTEGER   NO-UNDO.
+DEFINE VARIABLE cAssetName AS CHARACTER NO-UNDO.
+DEFINE VARIABLE iBusCap    AS INTEGER   NO-UNDO.
+DEFINE VARIABLE iBusSold   AS INTEGER   NO-UNDO.
+
+DEFINE VARIABLE iBaseArrivals  AS INTEGER   NO-UNDO.
+DEFINE VARIABLE iTrafficRoll   AS INTEGER   NO-UNDO.
+DEFINE VARIABLE dTrafficMult   AS DECIMAL   NO-UNDO.
 
 cBaseDir = SESSION:PARAMETER.
 IF cBaseDir = "" OR cBaseDir = ? THEN 
@@ -77,15 +90,12 @@ IF cBaseDir = "" OR cBaseDir = ? THEN
 cSimDir = cBaseDir + "\sim".
 
 FIND fp_Profile WHERE fp_Profile.ProfileName = cProfile NO-LOCK NO-ERROR.
-
 IF NOT AVAILABLE fp_Profile THEN DO:
     MESSAGE 'Profile ' + cProfile + ' was not found.' VIEW-AS ALERT-BOX ERROR.
     RETURN.
 END.
 
-
-ASSIGN iCapacity    = fp_Profile.Capacity
-       dCost        = fp_Profile.MarginalCost
+ASSIGN dCost        = fp_Profile.MarginalCost
        dStart       = fp_Profile.StartPrice
        dDrop1       = fp_Profile.Drop1Price
        dDrop2       = fp_Profile.Drop2Price
@@ -109,9 +119,6 @@ DO iTick = 1 TO 60:
     iHH  = TRUNCATE(iMin / 60, 0).
     iMM  = iMin MODULO 60.
 
-    dOcc = 100 * iSold / iCapacity.
-    dHrs = iWindowHours * (60 - iTick) / 60.
-
     IF iMin < 720 THEN
         dList = dStart.
     ELSE IF iMin < 840 THEN
@@ -120,21 +127,14 @@ DO iTick = 1 TO 60:
         dList = dDrop2.
 
     IF dList < dLastList THEN DO:
-        RUN fp_floor.p (INPUT dList, INPUT dCost, INPUT 85,
-                        INPUT dOcc, INPUT dHrs, INPUT iWindowHours,
-                        OUTPUT dCurFloor).
-        RUN LogEvent (INPUT 'DROP',
-                      INPUT 'Price drops to R' + TRIM(STRING(dList, '>>>,>>9.99'))
-                            + ' | floor R' + TRIM(STRING(dCurFloor, '>>>,>>9.99'))
-                            + ' | occ ' + TRIM(STRING(dOcc, '>>9.99')) + '%').
+        RUN fp_floor.p (INPUT dList, INPUT dCost, INPUT 85, INPUT 50, INPUT 72, INPUT iWindowHours, OUTPUT dCurFloor).
+        RUN LogEvent (INPUT 'DROP', INPUT 'General price drops to R' + TRIM(STRING(dList, '>>>,>>9.99'))).
         iCompBooks = 0.
         dCompDrop  = 0.
         FOR EACH bSweep:
             RUN fp_comp_perk.p (INPUT bSweep.CustNum, INPUT bSweep.BookingNum,
-                                INPUT dList, INPUT dList,
-                                INPUT NO, INPUT 'HOLD',
+                                INPUT dList, INPUT dList, INPUT NO, INPUT 'HOLD',
                                 OUTPUT dComp, OUTPUT cPerk).
-
             IF dComp > bSweep.CompPaid THEN DO:
                 dCompDrop  = dCompDrop + (dComp - bSweep.CompPaid).
                 iCompBooks = iCompBooks + 1.
@@ -143,84 +143,124 @@ DO iTick = 1 TO 60:
         END.
         dCompTotal = dCompTotal + dCompDrop.
         IF iCompBooks > 0 THEN
-            RUN LogEvent (INPUT 'COMP', INPUT 'Would owe ' + STRING(iCompBooks) + ' early buyers: R'
-                                              + TRIM(STRING(dCompDrop, '>>>,>>9.99'))).
+            RUN LogEvent (INPUT 'COMP', INPUT 'Would owe ' + STRING(iCompBooks) + ' early buyers: R' + TRIM(STRING(dCompDrop, '>>>,>>9.99'))).
         dLastList = dList.
     END.
 
-        IF iSold < iCapacity THEN DO:
-        IF iMin >= 600 AND iMin < 780 THEN
-            iArrivals = RANDOM(1, 4).
-        ELSE
-            iArrivals = RANDOM(0, 2).
+    IF (iMin >= 360 AND iMin < 540) THEN       
+        iBaseArrivals = 4.
+    ELSE IF (iMin >= 540 AND iMin < 900) THEN  
+        iBaseArrivals = 1.
+    ELSE IF (iMin >= 900 AND iMin < 1080) THEN 
+        iBaseArrivals = 3.
+    ELSE
+        iBaseArrivals = 1.                   
 
-        IF iTick = 12 OR iTick = 30 OR iTick = 45 THEN
-            iArrivals = MAXIMUM(iArrivals, 1).
+    dTrafficMult = 1.0.
+    iTrafficRoll = RANDOM(1, 100).
 
-        DO iA = 1 TO iArrivals:
-            iCust = 1000 + RANDOM(1, 200).
+    IF iTrafficRoll <= 5 THEN DO:           
+        dTrafficMult = 3.0.
+        RUN LogEvent (INPUT 'TRAFFIC', INPUT 'RARE SURGE: Massive influx of customers!').
+    END.
+    ELSE IF iTrafficRoll <= 15 THEN DO:     
+        dTrafficMult = 0.2.
+        RUN LogEvent (INPUT 'TRAFFIC', INPUT 'RARE SLUMP: Very few people travelling.').
+    END.
+    ELSE IF iTrafficRoll <= 40 THEN DO:     
+        dTrafficMult = 0.6.
+    END.
 
-            /* --- DEMO CUSTOMERS START --- */
-            IF iA = 1 AND iTick = 12 THEN iCust = 1001.
-            IF iA = 1 AND iTick = 30 THEN iCust = 1002.
-            IF iA = 1 AND iTick = 45 THEN iCust = 1003.
-            /* --- DEMO CUSTOMERS END (don't forget) --- */
+    iArrivals = ROUND(iBaseArrivals * dTrafficMult, 0).
 
-            IF NOT (iA = 1 AND (iTick = 12 OR iTick = 30 OR iTick = 45)) THEN
-                IF iSold >= iCapacity THEN LEAVE.
+    /* Demo customer guarantee - remember */
+    IF iTick = 12 OR iTick = 30 OR iTick = 45 THEN
+        iArrivals = MAXIMUM(iArrivals, 1).
 
-            bLast = (iCapacity - iSold) <= 12.
 
-            RUN fp_decide.p (INPUT iCust, INPUT 0, INPUT dList, INPUT dCost, INPUT bLast,
-                             INPUT dOcc, INPUT dHrs, INPUT iWindowHours,
-                             OUTPUT cSeg, OUTPUT dScr, OUTPUT cFair, OUTPUT dFinal,
-                             OUTPUT dComp, OUTPUT cPerk, OUTPUT dBlocked, OUTPUT cWhy).                             
-                             
-            iNextBook = iNextBook + 1.
-            DO TRANSACTION:
-                CREATE fp_Booking.
-                ASSIGN fp_Booking.BookingNum = iNextBook
-                       fp_Booking.CustNum    = iCust
-                       fp_Booking.PricePaid  = dFinal
-                       fp_Booking.BookDate   = TODAY.
+    DO iA = 1 TO iArrivals:
+        iCust = 1000 + RANDOM(1, 200).
+
+        /* --- DEMO CUSTOMERS START --- */
+        IF iA = 1 AND iTick = 12 THEN iCust = 1001.
+        IF iA = 1 AND iTick = 30 THEN iCust = 1002.
+        IF iA = 1 AND iTick = 45 THEN iCust = 1003.
+        /* --- DEMO CUSTOMERS END --- */
+
+        iAsset = RANDOM(1, 4).
+        FIND ae_Asset WHERE ae_Asset.AssetID = iAsset NO-LOCK NO-ERROR.
+        
+        IF AVAILABLE ae_Asset THEN DO:
+            cAssetName = ae_Asset.AssetName.
+            iBusCap = ae_Asset.Capacity.
+            dList = ae_Asset.BasePrice. 
+            
+            FIND ttAssetSold WHERE ttAssetSold.AssetID = iAsset NO-ERROR.
+            IF NOT AVAILABLE ttAssetSold THEN DO:
+                CREATE ttAssetSold.
+                ASSIGN ttAssetSold.AssetID = iAsset
+                       ttAssetSold.Sold = 0.
             END.
-
-            CREATE ttOrder.
-            ASSIGN ttOrder.BookingNum = iNextBook
-                   ttOrder.CustNum    = iCust
-                   ttOrder.Paid       = dFinal
-                   ttOrder.CompPaid   = 0
-                   ttOrder.Held       = (cFair = 'HOLD' OR cFair = 'EXPLOIT')
-                   ttOrder.Blocked    = dBlocked.
-
-            ASSIGN iSold    = iSold + 1
-                   dRevenue = dRevenue + dFinal
-                   dDiscountGiven = dDiscountGiven + (dList - dFinal).
-
-            IF ttOrder.Held THEN
-                ASSIGN iHolds    = iHolds + 1
-                       dWithheld = dWithheld + dBlocked.
-
-            FIND fp_Customer WHERE fp_Customer.CustNum = iCust NO-LOCK NO-ERROR.
-            IF AVAILABLE fp_Customer THEN
-                cCustName = fp_Customer.Name.
-            ELSE
-                cCustName = 'Cust ' + STRING(iCust).
-
-            RUN LogEvent (INPUT (IF ttOrder.Held THEN 'HOLD' ELSE 'ORDER'),
-                          INPUT STRING(iCust) + ' ' + cCustName + ' | ' + cSeg + ' | ' + cFair
-                                + ' | R' + TRIM(STRING(dFinal, '>>>,>>9.99')) + ' | perk ' + cPerk).
-                                
-            FIND LAST ae_Proposal NO-LOCK NO-ERROR.
-            IF AVAILABLE ae_Proposal THEN DO:
-                RUN ae_steward.p (INPUT ae_Proposal.ProposalID, INPUT 'Normal', OUTPUT cRul, OUTPUT cRsn, OUTPUT cCls).
-                
-                RUN ae_seal.p (INPUT ae_Proposal.ProposalID, INPUT 'Normal', INPUT cRul, INPUT cRsn, INPUT cCls, OUTPUT oWarr).
-                
-                RUN LogEvent (INPUT 'WARRANT', 
-                              INPUT 'ID ' + STRING(oWarr) + ' | ' + cRul + ' | ' + cCls).
-            END.                     
+            iBusSold = ttAssetSold.Sold.
+            
+            IF iBusSold >= iBusCap THEN NEXT.
         END.
+        ELSE DO:
+            cAssetName = 'Unknown Asset'.
+            iBusCap = 50.
+            iBusSold = 0.
+        END.
+
+        dOcc = (iBusSold / iBusCap) * 100.
+        dHrs = iWindowHours * (60 - iTick) / 60.
+        bLast = (iBusCap - iBusSold) <= 12.
+
+        RUN fp_decide.p (INPUT iCust, INPUT 0, INPUT dList, INPUT dCost, INPUT bLast,
+                         INPUT dOcc, INPUT dHrs, INPUT iWindowHours, INPUT iAsset,
+                         OUTPUT cSeg, OUTPUT dScr, OUTPUT cFair, OUTPUT dFinal,
+                         OUTPUT dComp, OUTPUT cPerk, OUTPUT dBlocked, OUTPUT cWhy).
+
+        iNextBook = iNextBook + 1.
+        DO TRANSACTION:
+            CREATE fp_Booking.
+            ASSIGN fp_Booking.BookingNum = iNextBook
+                   fp_Booking.CustNum    = iCust
+                   fp_Booking.PricePaid  = dFinal
+                   fp_Booking.BookDate   = TODAY.
+        END.
+
+        CREATE ttOrder.
+        ASSIGN ttOrder.BookingNum = iNextBook
+               ttOrder.CustNum    = iCust
+               ttOrder.Paid       = dFinal
+               ttOrder.CompPaid   = 0
+               ttOrder.Held       = (cFair = 'HOLD' OR cFair = 'EXPLOIT')
+               ttOrder.Blocked    = dBlocked.
+
+        ASSIGN iSold    = iSold + 1
+               dRevenue = dRevenue + dFinal
+               dDiscountGiven = dDiscountGiven + (dList - dFinal).
+               
+        ttAssetSold.Sold = ttAssetSold.Sold + 1.
+
+        IF ttOrder.Held THEN
+            ASSIGN iHolds    = iHolds + 1
+                   dWithheld = dWithheld + dBlocked.
+
+        FIND fp_Customer WHERE fp_Customer.CustNum = iCust NO-LOCK NO-ERROR.
+        IF AVAILABLE fp_Customer THEN cCustName = fp_Customer.Name.
+        ELSE cCustName = 'Cust ' + STRING(iCust).
+
+        RUN LogEvent (INPUT (IF ttOrder.Held THEN 'HOLD' ELSE 'ORDER'),
+                      INPUT STRING(iCust) + ' ' + cCustName + ' | ' + cSeg + ' | ' + cFair
+                            + ' | R' + TRIM(STRING(dFinal, '>>>,>>9.99')) + ' | ' + cAssetName).
+
+        FIND LAST ae_Proposal NO-LOCK NO-ERROR.
+        IF AVAILABLE ae_Proposal THEN DO:
+            RUN ae_steward.p (INPUT ae_Proposal.ProposalID, INPUT 'Normal', OUTPUT cRul, OUTPUT cRsn, OUTPUT cCls).
+            RUN ae_seal.p (INPUT ae_Proposal.ProposalID, INPUT 'Normal', INPUT cRul, INPUT cRsn, INPUT cCls, OUTPUT oWarr).
+            RUN LogEvent (INPUT 'WARRANT', INPUT 'ID ' + STRING(oWarr) + ' | ' + cRul + ' | ' + cCls).
+        END.                     
     END.
 
     IF iTick = iOverrideAt THEN DO:
@@ -239,9 +279,7 @@ DO iTick = 1 TO 60:
 
     RUN WriteFeed.
 
-    STATUS INPUT 'Simulated ' + STRING(iHH, '99') + ':' + STRING(iMM, '99')
-                 + ' | sold ' + STRING(iSold) + ' | compensation R'
-                 + TRIM(STRING(dCompTotal, '>>>,>>9.99')).
+    STATUS INPUT 'Simulated ' + STRING(iHH, '99') + ':' + STRING(iMM, '99') + ' | sold ' + STRING(iSold).
     IF iPause > 0 THEN PAUSE iPause NO-MESSAGE.
 END.
 
@@ -251,49 +289,32 @@ RUN WriteFeed.
 STATUS INPUT OFF.
 
 PUT STREAM sLog UNFORMATTED SKIP(1) 'END OF DAY - ' + cProfile SKIP
-    'Units sold: ' + STRING(iSold) + ' of ' + STRING(iCapacity) + ' ' + cUnit SKIP
+    'Total Units sold: ' + STRING(iSold) SKIP
     'Revenue: R' + TRIM(STRING(dRevenue, '>>>,>>>,>>9.99')) SKIP
-    'Discounts given: R' + TRIM(STRING(dDiscountGiven, '>>>,>>>,>>9.99')) SKIP
-    'Discounts withheld: R' + TRIM(STRING(dWithheld, '>>>,>>>,>>9.99')) SKIP
-    'Compensation reported: R' + TRIM(STRING(dCompTotal, '>>>,>>>,>>9.99')) SKIP
-    'Fairness holds: ' + STRING(iHolds) SKIP
-    'Manager overrides: ' + STRING(iOverrides) SKIP.
+    'Compensation reported: R' + TRIM(STRING(dCompTotal, '>>>,>>>,>>9.99')) SKIP.
 OUTPUT STREAM sLog CLOSE.
 
-MESSAGE 'SIMULATED DAY COMPLETE - ' + cProfile + CHR(10)
-      + 'Units sold: ' + STRING(iSold) + ' of ' + STRING(iCapacity) + ' ' + cUnit + CHR(10)
-      + 'Revenue: R' + TRIM(STRING(dRevenue, '>>>,>>>,>>9.99')) + CHR(10)
-      + 'Discounts given: R' + TRIM(STRING(dDiscountGiven, '>>>,>>>,>>9.99')) + CHR(10)
-      + 'Discounts withheld: R' + TRIM(STRING(dWithheld, '>>>,>>>,>>9.99')) + CHR(10)
-      + 'Compensation reported: R' + TRIM(STRING(dCompTotal, '>>>,>>>,>>9.99')) + CHR(10)
-      + 'Fairness holds: ' + STRING(iHolds) + CHR(10)
-      + 'Manager overrides: ' + STRING(iOverrides)
-      VIEW-AS ALERT-BOX INFORMATION.
+MESSAGE 'SIMULATED DAY COMPLETE' VIEW-AS ALERT-BOX INFORMATION.
 
 PROCEDURE LogEvent:
     DEFINE INPUT PARAMETER cKind AS CHARACTER NO-UNDO.
     DEFINE INPUT PARAMETER cText AS CHARACTER NO-UNDO.
     DEFINE VARIABLE cTime AS CHARACTER NO-UNDO.
-
     cTime = STRING(iHH, '99') + ':' + STRING(iMM, '99').
     PUT STREAM sLog UNFORMATTED cTime + '  ' + cKind + '  ' + cText SKIP.
-
     cEvents = cEvents + (IF cEvents = '' THEN '' ELSE '#') + cTime + '^' + cKind + '^' + cText.
     IF NUM-ENTRIES(cEvents, '#') > 12 THEN
         cEvents = SUBSTRING(cEvents, INDEX(cEvents, '#') + 1).
 END PROCEDURE.
 
 PROCEDURE WriteFeed:
-    IF iSold > 0 THEN
-        dAvgPrice = dRevenue / iSold.
-    ELSE
-        dAvgPrice = 0.
-
+    IF iSold > 0 THEN dAvgPrice = dRevenue / iSold.
+    ELSE dAvgPrice = 0.
     OUTPUT STREAM sFeed TO VALUE(cSimDir + '\feed.js').
     PUT STREAM sFeed UNFORMATTED
         'window.FAIRPLAY = ["' + STRING(iHH, '99') + ':' + STRING(iMM, '99') + '",'
         + TRIM(STRING(dList, '>>>>>9.99')) + ','
-        + TRIM(STRING(iSold, '>>>>>9')) + ',' + TRIM(STRING(iCapacity, '>>>>>9')) + ','
+        + TRIM(STRING(iSold, '>>>>>9')) + ','
         + TRIM(STRING(dRevenue, '>>>>>>>9.99')) + ','
         + TRIM(STRING(dCompTotal, '>>>>>>>9.99')) + ','
         + TRIM(STRING(dWithheld, '->>>>>>9.99')) + ','

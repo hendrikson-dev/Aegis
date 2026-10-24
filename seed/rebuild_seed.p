@@ -1,5 +1,5 @@
 DEFINE VARIABLE cList AS CHARACTER NO-UNDO
-    INITIAL "fp_seed.p,seed_profile.p,ae_charter_seed.p,seed_day4.p,reset_sim.p,gen_data.p,seed_demo.p,check_demo.p".
+    INITIAL "fp_seed.p,seed_profile.p,ae_charter_seed.p,seed_asset.p,seed_day4.p,reset_sim.p,gen_data.p,seed_demo.p,check_demo.p".
 DEFINE VARIABLE i AS INTEGER NO-UNDO.
 
 DO i = 1 TO NUM-ENTRIES(cList):

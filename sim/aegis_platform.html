@@ -1,41 +1,112 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Aegis Platform</title>
+<title>Karoo Express · Aegis Platform</title>
 <style>
-:root{--bg:#0b1220;--pn:#121b2e;--tx:#e6edf7;--mu:#8a9ab5;--ln:#223050;--ac:#4f8cff;--ok:#2fbf71;--no:#ef5350;--wa:#f2a93b}
-@media(prefers-color-scheme:light){:root{--bg:#f4f6fb;--pn:#fff;--tx:#14213d;--mu:#5b6b88;--ln:#d5dbe8;--ac:#2a5fd6;--ok:#17874d;--no:#c62f2c;--wa:#b36b00}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,"Segoe UI",sans-serif}
-header{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid var(--ln);flex-wrap:wrap}
-h1{font-size:18px;letter-spacing:.18em;margin:0}nav{display:flex;gap:4px}nav button,.b{background:none;border:1px solid var(--ln);color:var(--tx);padding:6px 14px;border-radius:8px;cursor:pointer;font:inherit}
-nav button.on,.rg.on,.b.on{background:var(--ac);border-color:var(--ac);color:#fff}.sp{flex:1}
-.flow{display:flex;gap:8px;flex-wrap:wrap}.st{flex:1;min-width:150px;border:1px solid var(--ln);border-radius:10px;padding:10px 12px}.st small{display:block;color:var(--mu)}.st.hi{border-color:var(--ac)}.flow span{align-self:center;color:var(--mu);font-size:22px}
-.sl{min-height:calc(100vh - 230px);display:flex;flex-direction:column;justify-content:center;max-width:900px;margin:0 auto}.sl h2{font-size:34px;margin:0 0 10px}.sl p{font-size:20px}.dots{text-align:center;color:var(--mu)}
-body.pm{font-size:18px}body.pm .chips,body.pm #mode{display:none}body.pm main{padding:24px 40px}
-[hidden]{display:none!important}.g2>.pane{min-height:46vh}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.tile{text-align:left;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:14px;color:var(--tx);cursor:pointer;font:inherit}.tile:hover{border-color:var(--ac)}.tile b{display:block;font-size:16px}.tile small{display:block;color:var(--mu);margin:2px 0 6px}.tile i{font-style:normal;font-size:12px;color:var(--wa)}
-#pop{position:absolute;top:54px;left:12px;z-index:9;background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:10px;width:min(620px,92vw)}
-dialog{color:var(--tx);background:var(--pn);border:1px solid var(--ln);border-radius:12px;width:320px}dialog::backdrop{background:rgba(0,0,0,.6)}dialog input{width:100%;padding:8px;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:8px}
-.chips{font-size:12px;color:var(--mu);padding:6px 20px;border-bottom:1px solid var(--ln)}.chips b{color:var(--tx)}
-main{padding:16px 20px}.tab[hidden]{display:none}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
-.k,.card,.pane{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:12px 14px}
-.k small{color:var(--mu);display:block;font-size:12px}.k b{font-size:22px}
-.g2{display:grid;grid-template-columns:3fr 2fr;gap:14px}@media(max-width:800px){.g2{grid-template-columns:1fr}}
-.row{display:flex;gap:10px;padding:6px 4px;border-bottom:1px solid var(--ln);font:13px Consolas,monospace}.row.w{cursor:pointer}.row.w:hover{background:var(--bg)}
-.row i{color:var(--mu);font-style:normal;width:44px}.tag{width:70px;font-weight:700}.Admit{color:var(--ok)}.Deny{color:var(--no)}.ORDER{color:var(--mu)}
-.badge{font-size:11px;border:1px solid var(--wa);color:var(--wa);padding:2px 8px;border-radius:99px}.badge.l{border-color:var(--ok);color:var(--ok)}
-pre{margin:0;font:14px/1.7 Consolas,monospace;overflow-x:auto}pre span{display:block;padding:0 8px;border-left:3px solid transparent;white-space:pre}
-pre span.on{background:rgba(79,140,255,.18);border-left-color:var(--ac)}
-table{border-collapse:collapse;width:100%}td{padding:4px 6px;border-bottom:1px solid var(--ln)}td:last-child{text-align:right;font-weight:700}
-.res{font-size:26px;font-weight:800;margin:8px 0}.say{font-size:17px;min-height:56px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}.card h3{margin:0 0 4px;font-size:16px}.card.d{opacity:.5}.card small{color:var(--mu)}
-iframe{width:100%;height:calc(100vh - 190px);border:1px solid var(--ln);border-radius:10px;background:#fff}
-
-a.b{text-decoration:none;display:inline-block}
-body{background:#fff;color:#14213d}header{border-color:#d5dbe8}h1{color:#14213d}.b{color:#14213d;border-color:#d5dbe8}.chips{background:#fff}iframe{filter:invert(1) hue-rotate(180deg);background:#0b1220;border-color:#d5dbe8}
+:root{--sb:#0f1b33;--ac:#2563eb;--bg:#f4f6fb;--pn:#fff;--ln:#e3e8f2;--tx:#14213d;--mu:#6b7a99;--ok:#16a34a;--no:#dc2626;--wa:#d97706}
+*{box-sizing:border-box}body{margin:0;height:100vh;display:grid;grid-template-columns:230px 1fr auto;overflow:hidden;font:14px/1.45 system-ui,"Segoe UI",sans-serif;color:var(--tx);background:var(--bg)}
+aside{background:var(--sb);color:#c9d4ec;display:flex;flex-direction:column;padding:16px 12px}
+.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 16px;color:#fff}.brand b{display:block}.brand small{color:#8fa0c4;font-size:11px}.lg{width:34px;height:34px;border-radius:10px;background:var(--ac);display:grid;place-items:center;font-weight:800}
+.nv{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left}.nv:hover{background:#1a2b4d}.nv.on{background:var(--ac);color:#fff}.nv i{margin-left:auto;background:var(--no);color:#fff;border-radius:99px;font-style:normal;font-size:11px;padding:0 7px}
+.sp{flex:1}#sp{padding:10px;border-top:1px solid #22345a;font-size:13px}#sp small{display:block;color:#8fa0c4}aside a{color:#8fa0c4;font-size:12px;padding:8px 10px;text-decoration:none}
+.col{display:flex;flex-direction:column;min-width:0}header{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--pn);border-bottom:1px solid var(--ln);position:relative}
+header h1{font-size:18px;margin:0}.in{padding:8px 12px;border:1px solid var(--ln);border-radius:8px;font:inherit;background:#fff;color:var(--tx)}#gs{width:240px}
+.pl{display:inline-block;font-size:12px;padding:2px 10px;border-radius:99px;border:1px solid var(--ln);color:var(--mu);font-weight:600}.pl.Admit,.pl.Override{color:var(--ok);border-color:var(--ok)}.pl.Deny{color:var(--no);border-color:var(--no)}.pl.Kept{color:var(--wa);border-color:var(--wa)}
+.ib{position:relative;border:1px solid var(--ln);background:#fff;border-radius:8px;width:36px;height:36px;display:grid;place-items:center;cursor:pointer;color:var(--tx)}.ib i{position:absolute;top:-5px;right:-5px;background:var(--no);color:#fff;border-radius:99px;font-style:normal;font-size:11px;padding:0 6px}
+#av{width:36px;height:36px;border-radius:50%;border:0;color:#fff;font-weight:700;cursor:pointer}#um{position:absolute;right:24px;top:56px;background:#fff;border:1px solid var(--ln);border-radius:12px;box-shadow:0 10px 30px rgba(15,27,51,.15);width:280px;z-index:9;padding:6px}#um[hidden]{display:none}
+#um button{display:flex;gap:10px;align-items:center;width:100%;border:0;background:none;padding:8px;border-radius:8px;cursor:pointer;font:inherit;text-align:left}#um button:hover{background:var(--bg)}#um small{display:block;color:var(--mu)}.dot{width:30px;height:30px;border-radius:50%;color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+main{padding:22px 24px;overflow:auto;flex:1}h2{margin:0 0 4px;font-size:22px}.mu{color:var(--mu)}
+.cd{background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:16px;margin-bottom:14px}.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:14px 0}.kp .cd{margin:0}.kp small{color:var(--mu)}.kp b{display:block;font-size:26px}.kp em{font-style:normal;color:var(--mu);font-size:12px}
+.g2{display:grid;grid-template-columns:3fr 2fr;gap:14px}@media(max-width:900px){.g2{grid-template-columns:1fr}}
+.br{display:grid;grid-template-columns:150px 1fr 90px;gap:10px;align-items:center;margin:8px 0}.br i{height:10px;background:var(--bg);border-radius:9px;overflow:hidden}.br u{display:block;height:100%;background:var(--ac)}.br b{text-align:right}
+table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--mu);font-weight:600;font-size:12px;padding:6px 8px;border-bottom:1px solid var(--ln)}td{padding:8px;border-bottom:1px solid var(--ln)}.rw{cursor:pointer}.rw:hover{background:var(--bg)}.kv td:first-child{color:var(--mu);width:140px}
+.bt{background:var(--ac);color:#fff;border:1px solid var(--ac);border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}.bt.g{background:#fff;color:var(--tx);border-color:var(--ln)}
+.ap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--ln)}.ap:last-child{border:0}.cd.ap{border:1px solid var(--ln)}
+#ai{display:none;width:330px;background:#fff;border-left:1px solid var(--ln);flex-direction:column}body.ai #ai{display:flex}.ah{padding:14px;border-bottom:1px solid var(--ln);display:flex;gap:8px;align-items:baseline}.ah small{color:var(--mu);flex:1}.ah button{border:0;background:none;font-size:20px;cursor:pointer}
+#am{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:8px}.m{max-width:90%;padding:8px 12px;border-radius:12px;background:var(--bg)}.m.u{align-self:flex-end;background:var(--ac);color:#fff}#ac{padding:8px 14px;display:flex;flex-wrap:wrap;gap:6px}#ac button{border:1px solid var(--ln);background:#fff;border-radius:99px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer}.ab{display:flex;gap:6px;padding:12px;border-top:1px solid var(--ln)}.ab input{flex:1}
+#ts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--sb);color:#fff;padding:10px 18px;border-radius:10px;opacity:0;transition:.3s;pointer-events:none;z-index:20}#ts.on{opacity:1}
 </style></head><body>
-<header><a class="b" href="aegis_hub.html" title="All apps">⠿</a><h1>PLATFORM</h1><span class="sp"></span><a class="b" href="aegis_hub.html#go=present">Present</a></header>
-<div class="chips" style="color:#5b6b88">Concept view of the business screens. Not wired to the live ledger.</div>
-<main><iframe src="aegis_platform_concept.html" title="Platform concept"></iframe></main>
+<aside><div class="brand"><div class="lg">K</div><div><b>Karoo Express</b><small>Powered by Aegis</small></div></div><div id="nv"></div><span class="sp"></span><a href="aegis_hub.html">⠿ All apps</a><div id="sp"></div></aside>
+<div class="col"><header><h1 id="pt"></h1><span class="sp"></span><input id="gs" class="in" placeholder="Search warrants and customers"><span class="pl" id="rg"></span><span class="pl" id="md"></span>
+<button class="ib" id="bl" title="Approvals"></button><button class="ib" id="ab" title="Assistant"></button><button id="av"></button><div id="um" hidden></div></header><main id="mn"></main></div>
+<div id="ai"><div class="ah"><b>Aegis Assistant</b><small>scripted demo</small><button id="ax">×</button></div><div id="am"></div><div id="ac"></div><div class="ab"><input id="aq" class="in" placeholder="Ask about this business"><button class="bt" id="as">Send</button></div></div>
+<div id="ts"></div>
+<script src="aegis_config.js"></script>
 <script>
+const $=s=>document.querySelector(s),R=n=>'R'+Number(n).toFixed(2);
+const I={home:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',trend:'M23 6l-9.5 9.5-5-5L1 18 M17 6h6v6',tag:'M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z M7 7h.01',check:'M22 11.1V12a10 10 0 1 1-5.9-9.1 M22 4L12 14l-3-3',book:'M4 19.5A2.5 2.5 0 0 1 6.5 17H20 M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z',shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',ticket:'M3 7h18v4a2 2 0 0 0 0 4v4H3v-4a2 2 0 0 0 0-4z',bell:'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9 M13.7 21a2 2 0 0 1-3.4 0',chat:'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'};
+const ic=n=>`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${I[n]}"/></svg>`;
+const NV={pulse:['Overview','home'],revenue:['Revenue','trend'],fares:['Fares','tag'],approvals:['Approvals','check'],ledger:['Ledger','book'],charter:['Charter','shield'],counter:['Counter','ticket']};
+const P=[{id:'o',name:'Karabo Mthembu',role:'Owner',dept:'Executive',col:'#2563eb',home:'pulse',nav:['pulse','revenue','approvals','ledger','charter']},{id:'m',name:'Pieter Naidoo',role:'Pricing Manager',dept:'Revenue',col:'#7c3aed',home:'fares',nav:['fares','approvals','ledger']},{id:'d',name:'Nomsa Khumalo',role:'Counter Agent',dept:'Customer Service',col:'#059669',home:'counter',nav:['counter','ledger']},{id:'a',name:'Ayanda Pillay',role:'Compliance Officer',dept:'Audit',col:'#d97706',home:'ledger',nav:['ledger','charter']}];
+const ROUTES=['Joburg to Cape Town','Cape Town to Joburg','Joburg to Durban','Durban to Joburg'];
+const CH=[['PR-1','Normal regime','Maximum price rise per change','10%'],['PR-2','Surge regime','Maximum price rise per change','40%'],['PR-3','Always','Price may not go below the floor','floor'],['LI-1','Always','Every price drop gets a recorded decision',''],['LI-2','Always','Liability may not exceed the price difference',''],['TR-1','Always','Every Warrant names the clause applied','']];
+let F={t:'--:--',sold:0,rev:0,comp:0,hold:0,ovr:0,avg:0},B=[],seen=new Set(),AP={},regime='Normal',me=P[0],view='pulse',sel=null,live=false,q='',dn=0,dr=0,greeted=false;
+/* data: live feed.js from the simulation, or a scripted demo when it is missing */
+function ing(d,demo){if(d.length<13)d=[d[0],d[1],d[2],'',d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11]];
+F={t:d[0],sold:d[2],rev:d[4],comp:d[5],hold:d[7],ovr:d[8],avg:d[9]};
+const ev=String(d[10]||'').split('#').filter(Boolean).map(x=>x.split('^'));
+ev.forEach((x,i)=>{if(x[1]!='WARRANT')return;const w=x[2].split('|').map(s=>s.trim()),id=w[0].replace('ID ','');if(seen.has(id))return;seen.add(id);
+const o=i>0&&ev[i-1][1]=='ORDER'?ev[i-1][2].split('|').map(s=>s.trim()):[];
+B.unshift({id:+id,t:x[0],cust:(o[0]||'').replace(/^\d+\s/,''),seg:o[1]||'',price:parseFloat((o[3]||'0').replace('R','')),route:o[4]||'-',r:w[1],cl:w[2]})});render(true)}
+function demo(){dn++;const r=ROUTES[dn%4],p=Math.round([450,520,610,850][dn%4]*(dn%7?1:1.4)),d=dn%7?'Admit':'Deny',t=('0'+(7+Math.floor(dn/6)%14)).slice(-2)+':'+('0'+(dn%6)*10).slice(-2);dr+=p;
+ing([t,0,dn,'',dr,0,0,0,0,dr/dn,`${t}^ORDER^${1000+dn} ${['Zanele','Pieter','Mpho','Lerato'][dn%4]} Dube | Regular | RELEASE | R${p}.00 | ${r}#${t}^WARRANT^ID ${200+dn} | ${d} | PR-1`,0,'seats'],true)}
+function poll(){const o=$('#fs');o&&o.remove();const s=document.createElement('script');s.id='fs';s.src='feed.js?_='+Date.now();
+s.onload=()=>{if(window.FAIRPLAY){if(!live){live=true;B=[];seen=new Set();AP={}}ing(window.FAIRPLAY,false)}};s.onerror=()=>{if(!live)demo()};document.body.appendChild(s)}
+/* helpers */
+const kp=a=>'<div class="kp">'+a.map(x=>`<div class="cd"><small>${x[0]}</small><b>${x[1]}</b><em>${x[2]||''}</em></div>`).join('')+'</div>';
+const pl=r=>`<span class="pl ${r}">${r}</span>`;
+function tbl(a){return a.length?'<table><tr><th>Warrant</th><th>Time</th><th>Customer</th><th>Route</th><th>Fare</th><th>Ruling</th><th>Rule</th></tr>'+a.map(b=>`<tr class="rw" onclick="pick(${b.id})"><td>#${b.id}</td><td>${b.t}</td><td>${b.cust}</td><td>${b.route}</td><td>${R(b.price)}</td><td>${pl(b.r)}</td><td>${b.cl}</td></tr>`).join('')+'</table>':'<p class="mu">Waiting for the first booking. Start the simulation.</p>'}
+function rs(){const m={};B.forEach(b=>{if(b.local)return;const x=m[b.route]=m[b.route]||{n:0,rev:0,last:b.price};x.n++;x.rev+=b.price});return m}
+function bars(){const m=rs(),k=Object.keys(m);if(!k.length)return'<p class="mu">No bookings yet.</p>';const mx=Math.max(...k.map(r=>m[r].rev));return k.map(r=>`<div class="br"><span>${r}</span><i><u style="width:${m[r].rev/mx*100}%"></u></i><b>${R(m[r].rev)}</b></div>`).join('')}
+const pend=()=>B.filter(b=>b.r=='Deny'&&!AP[b.id]&&!b.local);
+const fare=r=>{const x=rs()[r];return x?x.last:450};
+const lf=()=>B.filter(b=>!q||(b.id+' '+b.cust+' '+b.route+' '+b.r+' '+b.cl).toLowerCase().includes(q));
+function det(){const b=B.find(x=>x.id==sel);if(!b)return'';return `<div class="cd"><b>Warrant #${b.id}</b> ${pl(b.r)}<table class="kv"><tr><td>Customer</td><td>${b.cust} (${b.seg})</td></tr><tr><td>Route</td><td>${b.route}</td></tr><tr><td>Fare</td><td>${R(b.price)}</td></tr><tr><td>Rule applied</td><td>${b.cl}</td></tr><tr><td>Recorded</td><td>${b.t}, cannot be edited</td></tr></table></div>`}
+/* views */
+const V={
+pulse:()=>`<h2>Good day, ${me.name.split(' ')[0]}</h2><p class="mu">Karoo Express at ${F.t}. Numbers update as the simulation runs.</p>${kp([['Revenue today',R(F.rev),'all routes'],['Tickets sold',F.sold,'across the fleet'],['Average fare',R(F.avg),''],['Decisions recorded',B.length,'sealed in the ledger']])}<div class="g2"><div class="cd"><b>Routes</b>${bars()}</div><div class="cd"><b>Needs your decision</b><p class="mu">${pend().length} fares were refused by the Charter and wait for a person.</p><button class="bt" onclick="go('approvals')">Review</button></div></div><div class="cd"><b>Latest bookings</b>${tbl(B.slice(0,6))}</div>`,
+revenue:()=>`<h2>Revenue</h2>${kp([['Revenue',R(F.rev),''],['Compensation paid',R(F.comp),''],['Seats on hold',F.hold,'']])}<div class="cd"><b>By route</b>${bars()}</div><div class="cd"><b>Regime</b><p class="mu">Declare how the business is trading. It decides which price cap applies.</p><button class="bt ${regime=='Normal'?'':'g'}" onclick="setReg('Normal')">Normal</button> <button class="bt ${regime=='Surge'?'':'g'}" onclick="setReg('Surge')">Surge</button></div>`,
+fares:()=>{const m=rs();return `<h2>Today's fares</h2><p class="mu">Price cap now: ${regime=='Surge'?'40% (Surge)':'10% (Normal)'}. The engine proposes, the Charter rules.</p><div class="kp">`+ROUTES.map(r=>{const x=m[r];return `<div class="cd"><small>${r}</small><b>${x?R(x.last):'-'}</b><em>${x?x.n+' tickets, average '+R(x.rev/x.n):'no sales yet'}</em></div>`}).join('')+`</div><div class="cd"><b>Latest decisions</b>${tbl(B.slice(0,8))}</div>`},
+approvals:()=>{const can=me.id=='o'||me.id=='m',a=B.filter(b=>b.r=='Deny'&&!b.local);return `<h2>Approvals</h2><p class="mu">Fares the Charter refused. Only a person can override, and the override is recorded.</p>`+(a.length?a.slice(0,10).map(b=>`<div class="cd ap"><div><b>#${b.id} · ${b.route}</b><br><span class="mu">${b.cust} · ${R(b.price)} · refused under ${b.cl}</span></div><div>${AP[b.id]?pl(AP[b.id]):can?`<button class="bt" onclick="dec(${b.id},'Override')">Approve override</button> <button class="bt g" onclick="dec(${b.id},'Kept')">Keep refusal</button>`:'<span class="mu">Awaiting a manager</span>'}</div></div>`).join(''):'<div class="cd mu">Nothing waiting. Refused fares appear here.</div>')},
+ledger:()=>`<h2>Ledger</h2><p class="mu">Every decision, sealed and permanent.</p><div class="cd"><input id="sq" class="in" style="width:100%;margin-bottom:10px" placeholder="Search warrants, customers, routes" value="${q}" oninput="q=this.value.toLowerCase();$('#lt').innerHTML=tbl(lf().slice(0,40))"><div id="lt">${tbl(lf().slice(0,40))}</div></div>${det()}`,
+charter:()=>`<h2>Charter</h2><p class="mu">Rules written and owned by people. The system never changes them.</p><div class="cd">${CH.map(c=>`<div class="ap"><div><b>${c[0]}</b> <span class="mu">${c[1]}</span><br>${c[2]}</div>${c[3]?`<span class="pl">${c[3]}</span>`:''}</div>`).join('')}</div>${me.id=='o'?'<button class="bt" onclick="toast(\'A change opens a new Charter version. Concept only.\')">Propose a change</button>':''}`,
+counter:()=>`<h2>Counter</h2><p class="mu">Sell and look up tickets for the day.</p><div class="g2"><div class="cd"><b>Sell a ticket</b><p><select id="cr" class="in" onchange="$('#cp').textContent=R(fare(this.value))">${ROUTES.map(r=>`<option>${r}</option>`).join('')}</select></p><p>Fare: <b id="cp">${R(fare(ROUTES[0]))}</b></p><button class="bt" onclick="sell()">Sell ticket</button></div><div class="cd"><b>Find a ticket</b><p><input id="cw" class="in" placeholder="Warrant number" onkeydown="if(event.key=='Enter')find()"> <button class="bt g" onclick="find()">Look up</button></p><div id="cf"></div></div></div><div class="cd"><b>Your sales this session</b>${tbl(B.filter(b=>b.local).slice(0,5))}</div>`};
+/* actions */
+function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove('on'),2600)}
+function go(v){view=v;sel=null;render()}
+function pick(id){sel=id;render()}
+function dec(id,r){AP[id]=r;toast(r=='Override'?'Override approved and recorded (concept: not written to the live ledger)':'Refusal kept');render()}
+function setReg(r){if(me.id!='o')return;regime=r;toast('Regime declared: '+r+' by '+me.name+' (concept: not sent to the live system)');render()}
+function sell(){const r=$('#cr').value,p=fare(r);B.unshift({id:9000+B.length,t:F.t,cust:'Walk-in',seg:'Counter',price:p,route:r,r:'Admit',cl:'demo sale',local:true});toast('Ticket sold: '+r+' at '+R(p));render()}
+function find(){const b=B.find(x=>x.id==+$('#cw').value);$('#cf').innerHTML=b?`<p><b>#${b.id}</b> ${b.route}<br>${b.cust}, ${R(b.price)} ${pl(b.r)}<br><span class="mu">Rule ${b.cl}, recorded ${b.t}</span></p>`:'<p class="mu">No ticket with that number yet.</p>'}
+function who(i){me=P[i];view=me.home;sel=null;q='';$('#um').hidden=true;toast('Signed in as '+me.name+', '+me.role);render()}
+/* shell */
+function chrome(){const n=pend().length;
+$('#nv').innerHTML=me.nav.map(k=>`<button class="nv ${k==view?'on':''}" onclick="go('${k}')">${ic(NV[k][1])}<span>${NV[k][0]}</span>${k=='approvals'&&n?`<i>${n}</i>`:''}</button>`).join('');
+$('#pt').textContent=NV[view][0];$('#rg').textContent=regime+' regime';$('#md').textContent=live?'LIVE':'DEMO DATA';$('#md').className='pl '+(live?'Admit':'');
+$('#bl').innerHTML=ic('bell')+(n&&me.nav.includes('approvals')?`<i>${n}</i>`:'');$('#ab').innerHTML=ic('chat');
+$('#av').textContent=me.name.split(' ').map(x=>x[0]).join('');$('#av').style.background=me.col;
+$('#sp').innerHTML=`<b>${me.name}</b><small>${me.role} · ${me.dept}</small>`;
+$('#um').innerHTML=P.map((p,i)=>`<button onclick="who(${i})"><span class="dot" style="background:${p.col}">${p.name.split(' ').map(x=>x[0]).join('')}</span><span><b>${p.name}</b><small>${p.role} · ${p.dept}</small></span></button>`).join('');chips()}
+function render(auto){chrome();const a=document.activeElement;if(auto&&(['counter','charter'].includes(view)||(a&&['INPUT','SELECT'].includes(a.tagName)&&$('#mn').contains(a))))return;$('#mn').innerHTML=V[view]()}
+$('#av').onclick=()=>{$('#um').hidden=!$('#um').hidden};$('#bl').onclick=()=>{if(me.nav.includes('approvals'))go('approvals')};
+$('#gs').onkeydown=e=>{if(e.key=='Enter'){q=e.target.value.toLowerCase();e.target.value='';if(!me.nav.includes('ledger'))return toast('The ledger is not part of this role');go('ledger')}};
+/* assistant: speaks only when asked, answers from the data on screen */
+const CP={pulse:['How is revenue today?','Which route is busiest?','What needs my decision?'],revenue:['How is revenue today?','What does Surge change?'],fares:['Why was a fare refused?','What is the price cap?'],approvals:['What needs my decision?','Why was a fare refused?'],ledger:['How many were denied?','What is a Warrant?'],charter:['What is a Warrant?','What does Surge change?'],counter:['What is the fare for Joburg to Durban?','What is a Warrant?']};
+function chips(){$('#ac').innerHTML=(sel?[`Explain Warrant #${sel}`]:[]).concat(CP[view]||[]).map(t=>`<button>${t}</button>`).join('');document.querySelectorAll('#ac button').forEach(b=>b.onclick=()=>ask(b.textContent))}
+function say(t,u){const e=document.createElement('div');e.className='m'+(u?' u':'');e.textContent=t;$('#am').appendChild(e);$('#am').scrollTop=1e9;return e}
+function ans(s){s=s.toLowerCase();const m=rs(),k=Object.keys(m),d=B.filter(b=>b.r=='Deny'&&!b.local),w=s.match(/warrant\D*(\d+)|#(\d+)/),rt=ROUTES.find(r=>s.includes(r.toLowerCase()));
+if(w){const b=B.find(x=>x.id==(w[1]||w[2]));return b?`Warrant #${b.id}: ${b.cust} booked ${b.route} at ${R(b.price)}. The ruling was ${b.r} under ${b.cl}, recorded at ${b.t}. It cannot be edited.`:'I cannot find that Warrant yet.'}
+if(rt)return `The latest fare for ${rt} is ${R(fare(rt))}.`;
+if(/revenue|income|sales|money/.test(s))return `Revenue so far is ${R(F.rev)} from ${F.sold} tickets. The average fare is ${R(F.avg)}.`;
+if(/busy|busiest|top route/.test(s)){if(!k.length)return'No bookings yet.';const t=k.sort((a,b)=>m[b].n-m[a].n)[0];return `${t} is busiest, with ${m[t].n} tickets so far.`}
+if(/decision|waiting|approv/.test(s))return `${pend().length} refused fares are waiting for a person.`;
+if(/refus|deny|denied/.test(s))return d.length?`${d.length} of the last ${B.length} decisions were refused. The latest, Warrant #${d[0].id}, was refused under ${d[0].cl}: the fare was above the cap for the ${regime} regime.`:'Nothing has been refused yet.';
+if(/surge|regime/.test(s))return 'Surge raises the price cap from 10% to 40%. Only the Owner declares it, and the declaration is recorded.';
+if(/cap|limit/.test(s))return `The cap now is ${regime=='Surge'?'40%':'10%'} above the base price (rule ${regime=='Surge'?'PR-2':'PR-1'}). A price below the floor is always refused (PR-3).`;
+if(/warrant/.test(s))return 'A Warrant is the sealed record of one decision: the rule applied, the ruling and the time. It cannot be edited or deleted.';
+return 'I can explain a Warrant, revenue, busiest routes, refused fares or the Charter. Try one of the suggestions.'}
+function ask(t){t=t||$('#aq').value.trim();if(!t)return;$('#aq').value='';document.body.classList.add('ai');say(t,1);const e=say('…');setTimeout(()=>{e.textContent=ans(t)},550)}
+function aiOpen(){document.body.classList.toggle('ai');if(!greeted){greeted=true;say('I am here when you need me. Ask a question or tap a suggestion. I am a scripted demo and answer from the data on screen.')}}
+$('#ab').onclick=aiOpen;$('#ax').onclick=()=>document.body.classList.remove('ai');$('#as').onclick=()=>ask();$('#aq').onkeydown=e=>{if(e.key=='Enter')ask()};
+render();poll();setInterval(poll,2000);
 </script></body></html>

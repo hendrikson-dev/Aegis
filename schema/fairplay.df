@@ -23,6 +23,11 @@ ADD SEQUENCE "ae_LogSeq"
   INCREMENT 1
   CYCLE-ON-LIMIT no
 
+ADD SEQUENCE "ae_AssetSeq"
+  INITIAL 1
+  INCREMENT 1
+  CYCLE-ON-LIMIT no
+
 ADD TABLE "ae_AiLog"
   AREA "Schema Area"
   DUMP-NAME "ae_ailog"
@@ -71,6 +76,68 @@ ADD INDEX "LogID" ON "ae_AiLog"
   UNIQUE
   PRIMARY
   INDEX-FIELD "LogID" ASCENDING 
+
+ADD TABLE "ae_Asset"
+  AREA "Schema Area"
+  DUMP-NAME "ae_asset"
+
+ADD FIELD "AssetID" OF "ae_Asset" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 2
+  MAX-WIDTH 4
+  ORDER 10
+
+ADD FIELD "AssetType" OF "ae_Asset" AS character 
+  DESCRIPTION "e.g., 'Bus', 'Hotel', 'Salon'"
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 3
+  MAX-WIDTH 40
+  ORDER 20
+
+ADD FIELD "AssetName" OF "ae_Asset" AS character 
+  DESCRIPTION "e.g., 'Joburg to Durban - 07:00 AM'"
+  FORMAT "x(50)"
+  INITIAL ""
+  POSITION 4
+  MAX-WIDTH 100
+  ORDER 30
+
+ADD FIELD "Capacity" OF "ae_Asset" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 5
+  MAX-WIDTH 4
+  ORDER 40
+
+ADD FIELD "BasePrice" OF "ae_Asset" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 6
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 50
+
+ADD FIELD "DepartureTime" OF "ae_Asset" AS datetime-tz 
+  FORMAT "99/99/9999 HH:MM:SS.SSS+HH:MM"
+  INITIAL ?
+  POSITION 7
+  MAX-WIDTH 12
+  ORDER 60
+
+ADD FIELD "Schedule" OF "ae_Asset" AS character 
+  FORMAT "x(20)"
+  INITIAL ""
+  POSITION 8
+  MAX-WIDTH 40
+  ORDER 70
+
+ADD INDEX "AssetID" ON "ae_Asset" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "AssetID" ASCENDING 
 
 ADD TABLE "ae_Charter"
   AREA "Schema Area"
@@ -281,11 +348,22 @@ ADD FIELD "CreatedAt" OF "ae_Proposal" AS datetime-tz
   MAX-WIDTH 12
   ORDER 100
 
+ADD FIELD "AssetID" OF "ae_Proposal" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 12
+  MAX-WIDTH 4
+  ORDER 110
+
 ADD INDEX "ProposalID" ON "ae_Proposal" 
   AREA "Schema Area"
   UNIQUE
   PRIMARY
   INDEX-FIELD "ProposalID" ASCENDING 
+
+ADD INDEX "AssetID" ON "ae_Proposal" 
+  AREA "Schema Area"
+  INDEX-FIELD "AssetID" ASCENDING 
 
 ADD TABLE "ae_Regime"
   AREA "Schema Area"
@@ -772,4 +850,4 @@ ADD INDEX "SegName" ON "fp_Segment"
 PSC
 cpstream=ISO8859-1
 .
-0000015622
+0000017159

@@ -5,7 +5,7 @@ cBase   = OS-GETENV("FAIRPLAY_DIR").
 cAction = OS-GETENV("FAIRPLAY_ACTION").
 
 IF cBase = "" OR cBase = ? THEN DO:
-    MESSAGE "Start Agies with demo.bat, tests.bat or rebuild.bat."
+        MESSAGE "Start Aegis with demo.bat, tests.bat, count.bat or rebuild.bat."
         VIEW-AS ALERT-BOX ERROR.
     RETURN.
 END.

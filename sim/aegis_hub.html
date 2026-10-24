@@ -43,7 +43,7 @@ a.b{text-decoration:none;display:inline-block}
 <script src="aegis_config.js"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const APPS=[['live','Live Simulator','Watch decisions as the simulation runs','aegis_live.html'],['explain','Aegis Explained','One-page product overview',''],['present','Presentation','Saved for the live presentation','aegis_presentation.html'],['rules','Rules and AI','The Charter, then the AI Advocate chat',''],['plat','Platform','Business profiles and departments','aegis_platform.html'],['manage','Lock manager','Choose what is locked','']];
+const APPS=[['live','Live Simulator','Watch decisions as the simulation runs','aegis_live.html'],['explain','Aegis Explained','One-page product overview','aegis_explained.html'],['present','Presentation','Saved for the live presentation','aegis_presentation.html'],['rules','Rules and AI','The Charter, then the AI Advocate chat',''],['plat','Platform','Business profiles and departments','aegis_platform.html'],['manage','Lock manager','Choose what is locked','']];
 const UN=[['live','Live Simulator'],['explain','Aegis Explained'],['scenes','Run sheet (Scenes tab)'],['present','Presentation'],['rules','Rules and AI'],['plat','Platform']];
 let LK=null;try{LK=JSON.parse(localStorage.getItem('aegis_lock'))}catch(e){}LK=LK||{l:{present:1,scenes:1},k:''};
 let _ok=0;const setOk=v=>{_ok=v?Date.now():0;try{v?sessionStorage.setItem('aegis_ok',_ok):sessionStorage.removeItem('aegis_ok')}catch(e){}};
