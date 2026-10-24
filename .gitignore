@@ -2,6 +2,11 @@
 
 .env
 
+.settings/
+.project
+.propath
+build.config
+
 db/
 *.db
 *.bi
