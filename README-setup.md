@@ -20,6 +20,8 @@ Only one OpenEdge session can use the database at a time, so close other windows
 
    PROPATH = PROPATH + ',src,seed,' + OS-GETENV('DLC') + '\gui\netlib\OpenEdge.Net.pl'.
 
+   RUN src\setup_path.p.
+
 3. To check it worked:
 
    MESSAGE SEARCH('fp_price.p') VIEW-AS ALERT-BOX.
