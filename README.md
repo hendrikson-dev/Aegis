@@ -26,12 +26,12 @@ There are no customers and no revenue claims anywhere in this project.
 
 ## Quick start
 
-Double-click these in the project folder. After any change, run `tests.bat` first and then `count.bat`.
+Double-click these in the project folder. After any change, run `tests.bat` first and then `count.bat`. Both write test rows into the ledger (see the final clean rebuild below).
 
 | File | What it does |
 |---|---|
 | `tests.bat` | Run this first. Runs the original engine tests |
-| `count.bat` | Run this second. Runs the tests that count and shows one scoreboard |
+| `count.bat` | Run this second. Runs the tests that count. A popup lists 12 numbered checks (1 to 12) with a PASS or FAIL for each, and a total |
 | `demo.bat` | Opens the Live Simulator and feeds it a simulated day. Close any editor window first |
 | `present.bat` | Opens the app launcher (the display suite below) |
 | `workbench.bat` | Opens the OpenEdge editor in the project folder. Creates an empty database in `db\` if there is none |
@@ -92,26 +92,26 @@ The assistants in the platform and rules screens are scripted. They do not call 
 
 ## Final clean rebuild
 
-Do this before the final run-through. The ledger carries a few bad test rows until it is rebuilt.
+`tests.bat` and `count.bat` write test rows into the ledger (proposals, Warrants and one open exception). `rebuild.bat` does not clear them. Only deleting the `db` folder gives an empty ledger. So check first, then rebuild last, and do not run the tests again before the demo.
 
-1. Close every OpenEdge window.
-2. Delete the `db` folder.
-3. Double-click `workbench.bat`. It creates an empty database and says so.
-4. In the editor, open Tools, then Data Administration, and load `schema\fairplay.df` (Admin, Load Data and Definitions, Data Definitions). Do not tick "Add new objects online". Menu names may differ slightly by version.
-5. Close the editor.
-6. Double-click `rebuild.bat`.
-7. Double-click `tests.bat`, and check that the tests pass.
-8. Double-click `count.bat`, and check the scoreboard.
-9. Double-click `demo.bat`, and watch the Live Simulator run.
+1. Check: run `tests.bat`, then `count.bat`. The count popup lists checks 1 to 12. Every line should say PASS.
+2. Close every OpenEdge window, including the result popups.
+3. Delete the `db` folder.
+4. Double-click `workbench.bat`. It creates an empty database and says so.
+5. In the editor, open Tools, then Data Administration, and load `schema\fairplay.df` (Admin, Load Data and Definitions, Data Definitions). Do not tick "Add new objects online". Menu names may differ slightly by version.
+6. Close the editor.
+7. Double-click `rebuild.bat`.
+8. Double-click `demo.bat` and watch the Live Simulator run. Do not run `tests.bat` or `count.bat` after this step, or their rows will appear in the ledger.
 
 ## Submission copy
 
-1. Make a clean copy of the project, with the rebuilt `db` folder left out if the rules ask for source only.
-2. In `sim\aegis_config.js`, set `window.AEGIS_OPEN = true`. This removes every lock, so judges can open every page.
-3. Leave the passkey out of the copy. Leave `AEGIS_ORG` commented out unless a company name has been agreed.
-4. From the clean copy, run `tests.bat` and `count.bat`.
-5. Keep private documents (such as the venture positioning booklet) out of the copy.
-6. Check that `media\` holds only your own captures, with no stock images.
+1. Finish the final clean rebuild above first, so the ledger is clean.
+2. Make a copy of the project. Leave out the `db` folder if the rules ask for source only.
+3. In the copy's `sim\aegis_config.js`, set `window.AEGIS_OPEN = true`. This removes every lock, so judges can open every page.
+4. Leave the passkey out of the copy. Leave `AEGIS_ORG` commented out unless a company name has been agreed.
+5. To check the copy, run `tests.bat` and then `count.bat` on a throwaway duplicate of it, not on the copy you ship, because the tests add rows to the ledger. A copy that includes `db` should be the one that was rebuilt and not tested afterwards.
+6. Keep private documents (such as the venture positioning booklet) out of the copy.
+7. Check that `media\` holds only your own captures, with no stock images.
 
 ## Known limitations
 

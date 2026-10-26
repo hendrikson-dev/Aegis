@@ -45,51 +45,55 @@ END PROCEDURE.
 
 RUN NewProp (INPUT 500, INPUT 540, INPUT 300, OUTPUT iProp).
 RUN ae_steward.p (INPUT iProp, INPUT 'Normal', OUTPUT cRul, OUTPUT cWhy, OUTPUT cCls).
-RUN Check (INPUT 'T1 fair rise admitted', INPUT (cRul = 'Admit')).
+RUN Check (INPUT '1. Fair rise admitted', INPUT (cRul = 'Admit')).
 
 RUN NewProp (INPUT 500, INPUT 700, INPUT 300, OUTPUT iProp).
 RUN ae_steward.p (INPUT iProp, INPUT 'Normal', OUTPUT cRul, OUTPUT cWhy, OUTPUT cCls).
-RUN Check (INPUT 'T2 over the cap denied under PR-1', INPUT (cRul = 'Deny' AND cCls = 'PR-1')).
+RUN Check (INPUT '2. Over the cap denied under PR-1', INPUT (cRul = 'Deny' AND cCls = 'PR-1')).
+
 RUN ae_steward.p (INPUT iProp, INPUT 'Surge', OUTPUT cRul, OUTPUT cWhy, OUTPUT cCls).
-RUN Check (INPUT 'T4 Surge admits what Normal denied', INPUT (cRul = 'Admit')).
+RUN Check (INPUT '3. Surge admits what Normal denied', INPUT (cRul = 'Admit')).
 
 RUN NewProp (INPUT 500, INPUT 280, INPUT 300, OUTPUT iProp).
 RUN ae_steward.p (INPUT iProp, INPUT 'Normal', OUTPUT cRul, OUTPUT cWhy, OUTPUT cCls).
-RUN Check (INPUT 'T3 below the floor denied under PR-3', INPUT (cRul = 'Deny' AND cCls = 'PR-3')).
+RUN Check (INPUT '4. Below the floor denied under PR-3', INPUT (cRul = 'Deny' AND cCls = 'PR-3')).
 
 RUN NewProp (INPUT 500, INPUT 700, INPUT 300, OUTPUT iProp).
 RUN ae_seal.p (INPUT iProp, INPUT 'Normal', INPUT 'Deny', INPUT 'Over cap', INPUT 'PR-1', OUTPUT oWarr).
 FIND ae_Exception WHERE ae_Exception.WarrantID = oWarr NO-LOCK NO-ERROR.
 lOk = FALSE.
 IF AVAILABLE ae_Exception THEN lOk = (ae_Exception.ExcState = 'Open').
-RUN Check (INPUT 'T11 denial sealed and exception opened', INPUT lOk).
+RUN Check (INPUT '5. Denial sealed and exception opened', INPUT lOk).
 
 RUN CountW (OUTPUT iBefore).
 RUN NewProp (INPUT 500, INPUT 540, INPUT 300, OUTPUT iProp).
 RUN ae_seal.p (INPUT iProp, INPUT 'Normal', INPUT 'InvalidRuling', INPUT 'Test', INPUT 'PR-1', OUTPUT oWarr) NO-ERROR.
 RUN CountW (OUTPUT iAfter).
-RUN Check (INPUT 'T5 forced failure saves nothing', INPUT (iBefore = iAfter)).
+RUN Check (INPUT '6. Forced failure saves nothing', INPUT (iBefore = iAfter)).
 
 RUN ae_check_numbers.p (INPUT 'You were charged R500 and the new price is R400.', INPUT 500, INPUT 400, OUTPUT lOk).
-RUN Check (INPUT 'T6 correct numbers accepted', INPUT lOk).
+RUN Check (INPUT '7. Correct numbers accepted', INPUT lOk).
+
 RUN ae_check_numbers.p (INPUT 'You were charged R500.00 and the new price is R400.00.', INPUT 500, INPUT 400, OUTPUT lOk).
-RUN Check (INPUT 'T6b decimals accepted', INPUT lOk).
+RUN Check (INPUT '8. Decimals accepted', INPUT lOk).
+
 RUN ae_check_numbers.p (INPUT 'You were charged R500 and the new price is R999.', INPUT 500, INPUT 400, OUTPUT lOk).
-RUN Check (INPUT 'T7 invented number rejected', INPUT (NOT lOk)).
+RUN Check (INPUT '9. Invented number rejected', INPUT (NOT lOk)).
 
 RUN NewProp (INPUT 500, INPUT 540, INPUT 300, OUTPUT iProp).
 RUN ae_steward.p (INPUT iProp, INPUT 'Normal', OUTPUT cRul, OUTPUT cWhy, OUTPUT cCls).
 RUN ae_seal.p (INPUT iProp, INPUT 'Normal', INPUT cRul, INPUT cWhy, INPUT cCls, OUTPUT oWarr).
 RUN ae_replay.p (INPUT oWarr, OUTPUT lMatch, OUTPUT cOld, OUTPUT cNew).
-RUN Check (INPUT 'T10 replay gives the same ruling', INPUT lMatch).
+RUN Check (INPUT '10. Replay gives the same ruling', INPUT lMatch).
+
 RUN ae_concierge.p (INPUT oWarr, OUTPUT cRec).
-RUN Check (INPUT 'T14 receipt names the rule applied', INPUT (INDEX(cRec, cCls) > 0)).
+RUN Check (INPUT '11. Receipt names the rule applied', INPUT (INDEX(cRec, cCls) > 0)).
 
 lOk = TRUE.
 FOR EACH ae_Warrant NO-LOCK WHERE LOOKUP(ae_Warrant.Ruling, 'Admit,Deny,Override') = 0:
     lOk = FALSE.
 END.
-RUN Check (INPUT 'LEDGER every Warrant has a valid ruling', INPUT lOk).
+RUN Check (INPUT '12. Every Warrant has a valid ruling', INPUT lOk).
 
 MESSAGE cLog SKIP STRING(iPass) + ' PASS, ' + STRING(iFail) + ' FAIL'
     VIEW-AS ALERT-BOX INFORMATION TITLE 'Aegis tests that count'.

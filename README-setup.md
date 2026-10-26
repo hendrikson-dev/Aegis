@@ -20,7 +20,9 @@ To check that OpenEdge can see the key, type this into a new editor file and run
 1. Double-click `workbench.bat`. If `db\fairplay.db` does not exist, it creates an empty database and says so.
 2. The new database has no tables. In the editor window, open Tools > Data Administration and load `schema\fairplay.df` (Admin > Load Data and Definitions > Data Definitions). Do not tick "Add new objects online". The menu names may differ slightly by version.
 3. Close the editor, then double-click `rebuild.bat` to load the starting data.
-4. Run `tests.bat` first, then `count.bat` (see the Usage guide below).
+4. Run `tests.bat` first, then `count.bat` (see the Usage guide below). The count popup lists checks 1 to 12.
+
+These tests add rows to the ledger, and `rebuild.bat` does not clear them. For a clean ledger before a demo, delete the `db` folder and repeat steps 1 to 3, then go straight to `demo.bat`.
 
 Only one OpenEdge session can use the database at a time, so close other windows first.
 
@@ -43,11 +45,11 @@ The setting lasts only for that editor session, so repeat step 2 each time you r
 
 ## Usage guide
 
-- **Tests:** run `tests.bat` first. It runs the original engine tests. Then run `count.bat`. It runs the tests that count and shows one scoreboard.
+- **Tests:** run `tests.bat` first. It runs the original engine tests. Then run `count.bat`. It runs the tests that count and lists checks 1 to 12. Close each result window before starting the next one, because only one session can use the database. Both add rows to the ledger.
 - **Demo:** double-click `demo.bat`. The Live Simulator opens and the simulation feeds it. Close any editor window first.
 - **Presenting:** double-click `present.bat` to open the app launcher. Presentation is behind the passkey, unless `window.AEGIS_OPEN` is true in `sim\aegis_config.js`.
 - **Editor:** open it only with `workbench.bat`, then run `RUN src\setup_path.p.` once per session.
-- **Submission copy:** set `window.AEGIS_OPEN=true` in `sim\aegis_config.js`, leave the passkey out, then run `tests.bat` and then `count.bat` from that clean copy.
+- **Submission copy:** set `window.AEGIS_OPEN=true` in `sim\aegis_config.js`, leave the passkey out, then check a throwaway duplicate of the copy with `tests.bat` and then `count.bat`. Do not test the copy you ship if it includes the `db` folder.
 - **To start over:** delete the `db` folder and repeat the First run steps 2 to 4.
 
 **Naming Conventions:**
