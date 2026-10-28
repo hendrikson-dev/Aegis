@@ -52,7 +52,7 @@ Open these through `present.bat`, or open the files directly in a browser.
 |---|---|
 | `aegis_hub.html` | The launcher. Also holds the Lock manager and passkey |
 | `aegis_live.html` | The live display. Tabs: Live, Code, Scenes |
-| `aegis_presentation.html` | The talk (9 slides), plus a Media tab with every clip and screenshot |
+| `aegis_presentation.html` | The talk (14 slides, about 10 minutes), with a live-demo slide that has recorded backups, plus a Media tab with every clip and screenshot |
 | `aegis_platform.html` | Concept business app. Switch person from the avatar menu. Each role has its own scripted assistant |
 | `aegis_explained.html` | A one-page explanation for anyone. Runs as a looping, self-scrolling showcase |
 | `aegis_rules.html` | Rules and AI app (scripted) |

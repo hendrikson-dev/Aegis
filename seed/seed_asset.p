@@ -8,7 +8,7 @@ ASSIGN ae_Asset.AssetID = 1
        ae_Asset.AssetName = 'Joburg to Durban'
        ae_Asset.Schedule = '07:00 AM'
        ae_Asset.Capacity = 50
-       ae_Asset.BasePrice = 500.
+       ae_Asset.BasePrice = 600.
 
 CREATE ae_Asset.
 ASSIGN ae_Asset.AssetID = 2
@@ -16,7 +16,7 @@ ASSIGN ae_Asset.AssetID = 2
        ae_Asset.AssetName = 'Joburg to Cape Town'
        ae_Asset.Schedule = '08:30 AM'
        ae_Asset.Capacity = 40
-       ae_Asset.BasePrice = 850.
+       ae_Asset.BasePrice = 1000.
 
 CREATE ae_Asset.
 ASSIGN ae_Asset.AssetID = 3
@@ -24,7 +24,7 @@ ASSIGN ae_Asset.AssetID = 3
        ae_Asset.AssetName = 'Cape Town to Joburg'
        ae_Asset.Schedule = '10:00 AM'
        ae_Asset.Capacity = 40
-       ae_Asset.BasePrice = 850.
+       ae_Asset.BasePrice = 1000.
 
 CREATE ae_Asset.
 ASSIGN ae_Asset.AssetID = 4
@@ -32,7 +32,7 @@ ASSIGN ae_Asset.AssetID = 4
        ae_Asset.AssetName = 'Durban to Joburg'
        ae_Asset.Schedule = '09:00 PM'
        ae_Asset.Capacity = 50
-       ae_Asset.BasePrice = 450.
+       ae_Asset.BasePrice = 600.
 
 CREATE ae_Asset.
 ASSIGN ae_Asset.AssetID = 5

@@ -79,6 +79,8 @@ DEFINE VARIABLE cAssetName AS CHARACTER NO-UNDO.
 DEFINE VARIABLE iBusCap    AS INTEGER   NO-UNDO.
 DEFINE VARIABLE iBusSold   AS INTEGER   NO-UNDO.
 
+DEFINE VARIABLE dAssetCost AS DECIMAL   NO-UNDO.
+
 DEFINE VARIABLE iBaseArrivals  AS INTEGER   NO-UNDO.
 DEFINE VARIABLE iTrafficRoll   AS INTEGER   NO-UNDO.
 DEFINE VARIABLE dTrafficMult   AS DECIMAL   NO-UNDO.
@@ -173,7 +175,6 @@ DO iTick = 1 TO 60:
 
     iArrivals = ROUND(iBaseArrivals * dTrafficMult, 0).
 
-    /* Demo customer guarantee - remember */
     IF iTick = 12 OR iTick = 30 OR iTick = 45 THEN
         iArrivals = MAXIMUM(iArrivals, 1).
 
@@ -194,6 +195,7 @@ DO iTick = 1 TO 60:
             cAssetName = ae_Asset.AssetName.
             iBusCap = ae_Asset.Capacity.
             dList = ae_Asset.BasePrice. 
+            dAssetCost = dList * 0.6.
             
             FIND ttAssetSold WHERE ttAssetSold.AssetID = iAsset NO-ERROR.
             IF NOT AVAILABLE ttAssetSold THEN DO:
@@ -209,13 +211,14 @@ DO iTick = 1 TO 60:
             cAssetName = 'Unknown Asset'.
             iBusCap = 50.
             iBusSold = 0.
+            dAssetCost = dCost.
         END.
 
         dOcc = (iBusSold / iBusCap) * 100.
         dHrs = iWindowHours * (60 - iTick) / 60.
         bLast = (iBusCap - iBusSold) <= 12.
 
-        RUN fp_decide.p (INPUT iCust, INPUT 0, INPUT dList, INPUT dCost, INPUT bLast,
+        RUN fp_decide.p (INPUT iCust, INPUT 0, INPUT dList, INPUT dAssetCost, INPUT bLast,
                          INPUT dOcc, INPUT dHrs, INPUT iWindowHours, INPUT iAsset,
                          OUTPUT cSeg, OUTPUT dScr, OUTPUT cFair, OUTPUT dFinal,
                          OUTPUT dComp, OUTPUT cPerk, OUTPUT dBlocked, OUTPUT cWhy).
