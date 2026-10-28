@@ -1,7 +1,7 @@
 DEFINE VARIABLE cCode AS CHARACTER NO-UNDO.
 DEFINE VARIABLE iRisk AS INTEGER   NO-UNDO.
 
-
+PROPATH = PROPATH + ',src,seed,' + OS-GETENV('DLC') + '\gui\netlib\OpenEdge.Net.pl'.
 
 FOR EACH fp_Behaviour WHERE fp_Behaviour.CustNum = 3 EXCLUSIVE-LOCK:
     DELETE fp_Behaviour.

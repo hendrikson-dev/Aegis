@@ -27,7 +27,7 @@ END.
 cName = fp_Customer.Name.
 
 RUN fp_decide.p (INPUT iCustNum, INPUT iBookingNum, INPUT dListPrice,
-                 INPUT dMarginalCost, INPUT bLastSeat,
+                 INPUT dMarginalCost, INPUT bLastSeat, INPUT 0,
                  INPUT dOccupancy, INPUT dHoursLeft, INPUT dWindow,
                  OUTPUT cSegment, OUTPUT dScore, OUTPUT cFairness,
                  OUTPUT dFinalPrice, OUTPUT dComp, OUTPUT cPerk,

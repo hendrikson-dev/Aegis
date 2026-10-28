@@ -18,6 +18,12 @@ iProposalID = ae_Warrant.ProposalID.
 cRegime     = ae_Warrant.Regime.
 cOldRuling  = ae_Warrant.Ruling.
 
+IF cOldRuling = 'Override' THEN DO:
+    lMatch = TRUE.
+    cNewRuling = 'Human Override - Cannot be replayed by Steward'.
+    RETURN.
+END.
+
 RUN ae_steward.p (INPUT iProposalID, INPUT cRegime, OUTPUT cNewRuling, OUTPUT cRsn, OUTPUT cCls).
 
 IF cNewRuling = cOldRuling THEN 

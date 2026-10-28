@@ -16,7 +16,7 @@ RUN ae_replay.p (INPUT oWarr, OUTPUT lMatch, OUTPUT cOld, OUTPUT cNew).
 IF lMatch THEN DO:
     MESSAGE 'REPLAY SUCCESS!' SKIP
             'Original Ruling: ' + cOld SKIP
-            'Replayed Ruling: ' + cNew SKIP
+            'Replayed Verification: ' + cNew SKIP
             'Warrant ID: ' + STRING(oWarr)
         VIEW-AS ALERT-BOX INFO TITLE "Determinism Proven".
 END.
