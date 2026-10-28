@@ -24,6 +24,8 @@ First-time setup is in `README-setup.md`. This file is the overview.
 
 There are no customers and no revenue claims anywhere in this project.
 
+
+
 ## Quick start
 
 Double-click these in the project folder. After any change, run `tests.bat` first and then `count.bat`. Both write test rows into the ledger (see the final clean rebuild below).
@@ -124,3 +126,16 @@ The assistants in the platform and rules screens are scripted. They do not call 
 - `CONVENTIONS.md`: build rules for adding programs.
 - `docs\`: lessons and the platform architecture note.
 - `AEGIS_BOOKLET.pdf`: the printed A4 booklet for judges.
+
+
+# Aegis: The Governance Layer for AI
+
+## 🎥 Video Demo
+Watch the 2-minute walkthrough of Aegis here: **https://drive.google.com/file/d/1XzI-LhtL7xDt6JVn8bTS1kVs7hDNGIsa/view?usp=sharing
+### What you will see in the video:
+1. **The Core Engine:** The live OpenEdge simulation running, showing the Steward blocking bad decisions and sealing them in the immutable Warrant ledger.
+2. **The AI Cage:** Proof that the AI cannot hallucinate numbers, and the database rolls back completely if a transaction fails.
+3. **The Business OS:** Role-Based Access Control (RBAC) showing how a Resolver handles bulk approvals, and how a Manager/Owner can Veto a bad batch.
+
+## How this was built
+I’m a first-time coder. I built this with Claude as my coach, and Aider (using Qwen models) as a coding assistant. I reviewed, tested, and manually wrote the core Steward logic and database transactions. Every decision made in this project was tested and verified by me.
